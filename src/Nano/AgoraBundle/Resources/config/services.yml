@@ -1,0 +1,4 @@
+services:
+#    nano_agora.example:
+#        class: Nano\AgoraBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

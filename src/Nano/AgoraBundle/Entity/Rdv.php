@@ -1,0 +1,515 @@
+<?php
+
+namespace Nano\AgoraBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Rdv
+ *
+ * @ORM\Table(name="rdv")
+ * @ORM\Entity(repositoryClass="Nano\AgoraBundle\Repository\RdvRepository")
+ */
+class Rdv
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255)
+     */
+    private $nom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prenom", type="string", length=255)
+     */
+    private $prenom;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="sexe", type="integer")
+     */
+    private $sexe;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="age", type="date")
+     */
+    private $age;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nationalite", type="string", length=255)
+     */
+    private $nationalite;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="profession", type="string", length=255)
+     */
+    private $profession;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="quartier", type="string", length=255)
+     */
+    private $quartier;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="numero", type="integer")
+     */
+    private $numero;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="photo", type="string", length=255)
+     */
+    private $photo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="motif_consultation_patient", type="text")
+     */
+    private $motifConsultationPatient;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_heure_rdv", type="datetime")
+     */
+    private $dateHeureRdv;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="lieu_consultation", type="integer")
+     */
+    private $lieuConsultation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="localisation", type="text")
+     */
+    private $localisation;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_etape1", type="datetime")
+     */
+    private $dateEtape1;
+
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Ville", mappedBy="rdvs")
+     * @var $ville[]
+     */
+     private $Id_Ville;    
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     *
+     * @return Rdv
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * Set prenom
+     *
+     * @param string $prenom
+     *
+     * @return Rdv
+     */
+    public function setPrenom($prenom)
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * Get prenom
+     *
+     * @return string
+     */
+    public function getPrenom()
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * Set sexe
+     *
+     * @param integer $sexe
+     *
+     * @return Rdv
+     */
+    public function setSexe($sexe)
+    {
+        $this->sexe = $sexe;
+
+        return $this;
+    }
+
+    /**
+     * Get sexe
+     *
+     * @return int
+     */
+    public function getSexe()
+    {
+        return $this->sexe;
+    }
+
+    /**
+     * Set age
+     *
+     * @param \DateTime $age
+     *
+     * @return Rdv
+     */
+    public function setAge($age)
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    /**
+     * Get age
+     *
+     * @return \DateTime
+     */
+    public function getAge()
+    {
+        return $this->age;
+    }
+
+    /**
+     * Set nationalite
+     *
+     * @param string $nationalite
+     *
+     * @return Rdv
+     */
+    public function setNationalite($nationalite)
+    {
+        $this->nationalite = $nationalite;
+
+        return $this;
+    }
+
+    /**
+     * Get nationalite
+     *
+     * @return string
+     */
+    public function getNationalite()
+    {
+        return $this->nationalite;
+    }
+
+    /**
+     * Set profession
+     *
+     * @param string $profession
+     *
+     * @return Rdv
+     */
+    public function setProfession($profession)
+    {
+        $this->profession = $profession;
+
+        return $this;
+    }
+
+    /**
+     * Get profession
+     *
+     * @return string
+     */
+    public function getProfession()
+    {
+        return $this->profession;
+    }
+
+    /**
+     * Set quartier
+     *
+     * @param string $quartier
+     *
+     * @return Rdv
+     */
+    public function setQuartier($quartier)
+    {
+        $this->quartier = $quartier;
+
+        return $this;
+    }
+
+    /**
+     * Get quartier
+     *
+     * @return string
+     */
+    public function getQuartier()
+    {
+        return $this->quartier;
+    }
+
+    /**
+     * Set numero
+     *
+     * @param integer $numero
+     *
+     * @return Rdv
+     */
+    public function setNumero($numero)
+    {
+        $this->numero = $numero;
+
+        return $this;
+    }
+
+    /**
+     * Get numero
+     *
+     * @return int
+     */
+    public function getNumero()
+    {
+        return $this->numero;
+    }
+
+    /**
+     * Set photo
+     *
+     * @param string $photo
+     *
+     * @return Rdv
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return string
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * Set motifConsultationPatient
+     *
+     * @param string $motifConsultationPatient
+     *
+     * @return Rdv
+     */
+    public function setMotifConsultationPatient($motifConsultationPatient)
+    {
+        $this->motifConsultationPatient = $motifConsultationPatient;
+
+        return $this;
+    }
+
+    /**
+     * Get motifConsultationPatient
+     *
+     * @return string
+     */
+    public function getMotifConsultationPatient()
+    {
+        return $this->motifConsultationPatient;
+    }
+
+    /**
+     * Set dateHeureRdv
+     *
+     * @param \DateTime $dateHeureRdv
+     *
+     * @return Rdv
+     */
+    public function setDateHeureRdv($dateHeureRdv)
+    {
+        $this->dateHeureRdv = $dateHeureRdv;
+
+        return $this;
+    }
+
+    /**
+     * Get dateHeureRdv
+     *
+     * @return \DateTime
+     */
+    public function getDateHeureRdv()
+    {
+        return $this->dateHeureRdv;
+    }
+
+    /**
+     * Set lieuConsultation
+     *
+     * @param integer $lieuConsultation
+     *
+     * @return Rdv
+     */
+    public function setLieuConsultation($lieuConsultation)
+    {
+        $this->lieuConsultation = $lieuConsultation;
+
+        return $this;
+    }
+
+    /**
+     * Get lieuConsultation
+     *
+     * @return int
+     */
+    public function getLieuConsultation()
+    {
+        return $this->lieuConsultation;
+    }
+
+    /**
+     * Set localisation
+     *
+     * @param string $localisation
+     *
+     * @return Rdv
+     */
+    public function setLocalisation($localisation)
+    {
+        $this->localisation = $localisation;
+
+        return $this;
+    }
+
+    /**
+     * Get localisation
+     *
+     * @return string
+     */
+    public function getLocalisation()
+    {
+        return $this->localisation;
+    }
+
+    /**
+     * Set dateEtape1
+     *
+     * @param \DateTime $dateEtape1
+     *
+     * @return Rdv
+     */
+    public function setDateEtape1($dateEtape1)
+    {
+        $this->dateEtape1 = $dateEtape1;
+
+        return $this;
+    }
+
+    /**
+     * Get dateEtape1
+     *
+     * @return \DateTime
+     */
+    public function getDateEtape1()
+    {
+        return $this->dateEtape1;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->Id_Ville = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add idVille
+     *
+     * @param \Nano\AgoraBundle\Entity\Ville $idVille
+     *
+     * @return Rdv
+     */
+    public function addIdVille(\Nano\AgoraBundle\Entity\Ville $idVille)
+    {
+        $this->Id_Ville[] = $idVille;
+
+        return $this;
+    }
+
+    /**
+     * Remove idVille
+     *
+     * @param \Nano\AgoraBundle\Entity\Ville $idVille
+     */
+    public function removeIdVille(\Nano\AgoraBundle\Entity\Ville $idVille)
+    {
+        $this->Id_Ville->removeElement($idVille);
+    }
+
+    /**
+     * Get idVille
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdVille()
+    {
+        return $this->Id_Ville;
+    }
+}

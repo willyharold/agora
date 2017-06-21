@@ -1,0 +1,115 @@
+<?php
+
+namespace Nano\AgoraBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Examen_rdv
+ *
+ * @ORM\Table(name="examen_rdv")
+ * @ORM\Entity(repositoryClass="Nano\AgoraBundle\Repository\Examen_rdvRepository")
+ */
+class Examen_rdv
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="resultat", type="string", length=255)
+     */
+    private $resultat;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="etat", type="integer")
+     */
+    private $etat;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Rdv", mappedBy="examen_rdv")
+     * @var $rdv[]
+     */
+     private $Id_Rdv;
+
+     /**
+     * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Examen", mappedBy="examen_rdv")
+     * @var $examen[]
+     */
+     private $Id_Examen;
+
+      /**
+     * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Laboratoire", mappedBy="examen_rdv")
+     * @var $laboratoire[]
+     */
+     private $Id_Laboratoire;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set resultat
+     *
+     * @param string $resultat
+     *
+     * @return Examen_rdv
+     */
+    public function setResultat($resultat)
+    {
+        $this->resultat = $resultat;
+
+        return $this;
+    }
+
+    /**
+     * Get resultat
+     *
+     * @return string
+     */
+    public function getResultat()
+    {
+        return $this->resultat;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param integer $etat
+     *
+     * @return Examen_rdv
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return int
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+}
+
