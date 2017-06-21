@@ -1,13 +1,7 @@
-nano_user:
-    resource: "@NanoUserBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 nano_agora:
     resource: "@NanoAgoraBundle/Controller/"
     type:     annotation
     prefix:   /
 
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
