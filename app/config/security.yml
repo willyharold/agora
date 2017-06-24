@@ -1,24 +1,32 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/security.html
 security:
-
-    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
-    providers:
-        in_memory:
-            memory: ~
-
-    firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
-        main:
-            anonymous: ~
-            # activate different ways to authenticate
-
-            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-            #form_login: ~
+encoders:
+FOS\UserBundle\Model\UserInterface: sha512
+providers:
+fos_userbundle:
+id: fos_user.user_provider.username_email
+#
+fos_user.user_provider.username_email does not seem to work (OAuth-spec related
+("username + password") ?)
+firewalls:
+oauth_token:
+# Everyone can access
+the access token URL.
+pattern: ^/oauth/v2/token
+security: false
+api:
+pattern: ^/
+fos_oauth: true
+resource
+stateless: true
+cookies
+anonymous: true
+allowed
+doc:
+pattern: ^/
+security: false
+# All URLs are protected
+# OAuth2 protected
+# Do no set session
+# Anonymous access is not
