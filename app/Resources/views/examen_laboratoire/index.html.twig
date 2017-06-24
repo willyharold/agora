@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Examen_laboratoires list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for examen_laboratoire in examen_laboratoires %}
+            <tr>
+                <td><a href="{{ path('examen_laboratoire_show', { 'id': examen_laboratoire.id }) }}">{{ examen_laboratoire.id }}</a></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('examen_laboratoire_show', { 'id': examen_laboratoire.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('examen_laboratoire_edit', { 'id': examen_laboratoire.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('examen_laboratoire_new') }}">Create a new examen_laboratoire</a>
+        </li>
+    </ul>
+{% endblock %}

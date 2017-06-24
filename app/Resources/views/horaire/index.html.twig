@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Horaires list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Lundidebut</th>
+                <th>Mardidebut</th>
+                <th>Mercredidebut</th>
+                <th>Jeudidebut</th>
+                <th>Vendredidebut</th>
+                <th>Samedidebut</th>
+                <th>Dimanchedebut</th>
+                <th>Lundifin</th>
+                <th>Mardifin</th>
+                <th>Mercredifin</th>
+                <th>Jeudifin</th>
+                <th>Vendredifin</th>
+                <th>Samedifin</th>
+                <th>Dimanchefin</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for horaire in horaires %}
+            <tr>
+                <td><a href="{{ path('horaire_show', { 'id': horaire.id }) }}">{{ horaire.id }}</a></td>
+                <td>{% if horaire.lundiDebut %}{{ horaire.lundiDebut|date('H:i:s') }}{% endif %}</td>
+                <td>{% if horaire.mardiDebut %}{{ horaire.mardiDebut|date('H:i:s') }}{% endif %}</td>
+                <td>{% if horaire.mercrediDebut %}{{ horaire.mercrediDebut|date('H:i:s') }}{% endif %}</td>
+                <td>{% if horaire.jeudiDebut %}{{ horaire.jeudiDebut|date('H:i:s') }}{% endif %}</td>
+                <td>{% if horaire.vendrediDebut %}{{ horaire.vendrediDebut|date('H:i:s') }}{% endif %}</td>
+                <td>{% if horaire.samediDebut %}{{ horaire.samediDebut|date('H:i:s') }}{% endif %}</td>
+                <td>{% if horaire.dimancheDebut %}{{ horaire.dimancheDebut|date('H:i:s') }}{% endif %}</td>
+                <td>{% if horaire.lundiFin %}{{ horaire.lundiFin|date('H:i:s') }}{% endif %}</td>
+                <td>{% if horaire.mardiFin %}{{ horaire.mardiFin|date('H:i:s') }}{% endif %}</td>
+                <td>{% if horaire.mercrediFin %}{{ horaire.mercrediFin|date('H:i:s') }}{% endif %}</td>
+                <td>{% if horaire.jeudiFin %}{{ horaire.jeudiFin|date('H:i:s') }}{% endif %}</td>
+                <td>{% if horaire.vendrediFin %}{{ horaire.vendrediFin|date('H:i:s') }}{% endif %}</td>
+                <td>{% if horaire.samediFin %}{{ horaire.samediFin|date('H:i:s') }}{% endif %}</td>
+                <td>{% if horaire.dimancheFin %}{{ horaire.dimancheFin|date('H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('horaire_show', { 'id': horaire.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('horaire_edit', { 'id': horaire.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('horaire_new') }}">Create a new horaire</a>
+        </li>
+    </ul>
+{% endblock %}

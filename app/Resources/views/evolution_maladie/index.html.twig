@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Evolution_maladies list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Plaintes</th>
+                <th>Examenphysique</th>
+                <th>Dateenregistrement</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for evolution_maladie in evolution_maladies %}
+            <tr>
+                <td><a href="{{ path('evolution_maladie_show', { 'id': evolution_maladie.id }) }}">{{ evolution_maladie.id }}</a></td>
+                <td>{{ evolution_maladie.plaintes }}</td>
+                <td>{{ evolution_maladie.examenPhysique }}</td>
+                <td>{% if evolution_maladie.dateEnregistrement %}{{ evolution_maladie.dateEnregistrement|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('evolution_maladie_show', { 'id': evolution_maladie.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('evolution_maladie_edit', { 'id': evolution_maladie.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('evolution_maladie_new') }}">Create a new evolution_maladie</a>
+        </li>
+    </ul>
+{% endblock %}

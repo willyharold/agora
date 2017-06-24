@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Rdvs list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Sexe</th>
+                <th>Age</th>
+                <th>Nationalite</th>
+                <th>Profession</th>
+                <th>Quartier</th>
+                <th>Numero</th>
+                <th>Photo</th>
+                <th>Motifconsultationpatient</th>
+                <th>Dateheurerdv</th>
+                <th>Lieuconsultation</th>
+                <th>Localisation</th>
+                <th>Dateetape1</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rdv in rdvs %}
+            <tr>
+                <td><a href="{{ path('rdv_show', { 'id': rdv.id }) }}">{{ rdv.id }}</a></td>
+                <td>{{ rdv.nom }}</td>
+                <td>{{ rdv.prenom }}</td>
+                <td>{{ rdv.sexe }}</td>
+                <td>{% if rdv.age %}{{ rdv.age|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ rdv.nationalite }}</td>
+                <td>{{ rdv.profession }}</td>
+                <td>{{ rdv.quartier }}</td>
+                <td>{{ rdv.numero }}</td>
+                <td>{{ rdv.photo }}</td>
+                <td>{{ rdv.motifConsultationPatient }}</td>
+                <td>{% if rdv.dateHeureRdv %}{{ rdv.dateHeureRdv|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ rdv.lieuConsultation }}</td>
+                <td>{{ rdv.localisation }}</td>
+                <td>{% if rdv.dateEtape1 %}{{ rdv.dateEtape1|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('rdv_show', { 'id': rdv.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('rdv_edit', { 'id': rdv.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('rdv_new') }}">Create a new rdv</a>
+        </li>
+    </ul>
+{% endblock %}

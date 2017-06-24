@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Evolution_maladie</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ evolution_maladie.id }}</td>
+            </tr>
+            <tr>
+                <th>Plaintes</th>
+                <td>{{ evolution_maladie.plaintes }}</td>
+            </tr>
+            <tr>
+                <th>Examenphysique</th>
+                <td>{{ evolution_maladie.examenPhysique }}</td>
+            </tr>
+            <tr>
+                <th>Dateenregistrement</th>
+                <td>{% if evolution_maladie.dateEnregistrement %}{{ evolution_maladie.dateEnregistrement|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('evolution_maladie_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('evolution_maladie_edit', { 'id': evolution_maladie.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

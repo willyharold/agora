@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Examen_rdvs list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Resultat</th>
+                <th>Etat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for examen_rdv in examen_rdvs %}
+            <tr>
+                <td><a href="{{ path('examen_rdv_show', { 'id': examen_rdv.id }) }}">{{ examen_rdv.id }}</a></td>
+                <td>{{ examen_rdv.resultat }}</td>
+                <td>{{ examen_rdv.etat }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('examen_rdv_show', { 'id': examen_rdv.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('examen_rdv_edit', { 'id': examen_rdv.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('examen_rdv_new') }}">Create a new examen_rdv</a>
+        </li>
+    </ul>
+{% endblock %}

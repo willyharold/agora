@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Examan</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ examan.id }}</td>
+            </tr>
+            <tr>
+                <th>Designation</th>
+                <td>{{ examan.designation }}</td>
+            </tr>
+            <tr>
+                <th>Prixreel</th>
+                <td>{{ examan.prixReel }}</td>
+            </tr>
+            <tr>
+                <th>Prixajouter</th>
+                <td>{{ examan.prixAjouter }}</td>
+            </tr>
+            <tr>
+                <th>Prixdomicile</th>
+                <td>{{ examan.prixDomicile }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ examan.description }}</td>
+            </tr>
+            <tr>
+                <th>Recommandation</th>
+                <td>{{ examan.recommandation }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>{{ examan.photo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('examen_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('examen_edit', { 'id': examan.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

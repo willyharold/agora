@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Horaire</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ horaire.id }}</td>
+            </tr>
+            <tr>
+                <th>Lundidebut</th>
+                <td>{% if horaire.lundiDebut %}{{ horaire.lundiDebut|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Mardidebut</th>
+                <td>{% if horaire.mardiDebut %}{{ horaire.mardiDebut|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Mercredidebut</th>
+                <td>{% if horaire.mercrediDebut %}{{ horaire.mercrediDebut|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Jeudidebut</th>
+                <td>{% if horaire.jeudiDebut %}{{ horaire.jeudiDebut|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Vendredidebut</th>
+                <td>{% if horaire.vendrediDebut %}{{ horaire.vendrediDebut|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Samedidebut</th>
+                <td>{% if horaire.samediDebut %}{{ horaire.samediDebut|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Dimanchedebut</th>
+                <td>{% if horaire.dimancheDebut %}{{ horaire.dimancheDebut|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Lundifin</th>
+                <td>{% if horaire.lundiFin %}{{ horaire.lundiFin|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Mardifin</th>
+                <td>{% if horaire.mardiFin %}{{ horaire.mardiFin|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Mercredifin</th>
+                <td>{% if horaire.mercrediFin %}{{ horaire.mercrediFin|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Jeudifin</th>
+                <td>{% if horaire.jeudiFin %}{{ horaire.jeudiFin|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Vendredifin</th>
+                <td>{% if horaire.vendrediFin %}{{ horaire.vendrediFin|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Samedifin</th>
+                <td>{% if horaire.samediFin %}{{ horaire.samediFin|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Dimanchefin</th>
+                <td>{% if horaire.dimancheFin %}{{ horaire.dimancheFin|date('H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('horaire_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('horaire_edit', { 'id': horaire.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

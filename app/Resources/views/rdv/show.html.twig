@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Rdv</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ rdv.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ rdv.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ rdv.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ rdv.sexe }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{% if rdv.age %}{{ rdv.age|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Nationalite</th>
+                <td>{{ rdv.nationalite }}</td>
+            </tr>
+            <tr>
+                <th>Profession</th>
+                <td>{{ rdv.profession }}</td>
+            </tr>
+            <tr>
+                <th>Quartier</th>
+                <td>{{ rdv.quartier }}</td>
+            </tr>
+            <tr>
+                <th>Numero</th>
+                <td>{{ rdv.numero }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>{{ rdv.photo }}</td>
+            </tr>
+            <tr>
+                <th>Motifconsultationpatient</th>
+                <td>{{ rdv.motifConsultationPatient }}</td>
+            </tr>
+            <tr>
+                <th>Dateheurerdv</th>
+                <td>{% if rdv.dateHeureRdv %}{{ rdv.dateHeureRdv|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Lieuconsultation</th>
+                <td>{{ rdv.lieuConsultation }}</td>
+            </tr>
+            <tr>
+                <th>Localisation</th>
+                <td>{{ rdv.localisation }}</td>
+            </tr>
+            <tr>
+                <th>Dateetape1</th>
+                <td>{% if rdv.dateEtape1 %}{{ rdv.dateEtape1|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('rdv_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('rdv_edit', { 'id': rdv.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,77 @@
+agora_evolution:
+    resource: "@NanoAgoraBundle/Controller/Evolution_maladieController.php"
+    type:     annotation
+    prefix:   /evolution_maladie
+
+agora_examen:
+    resource: "@NanoAgoraBundle/Controller/ExamenController.php"
+    type:     annotation
+    prefix:   /examen
+
+agora_examen_laboratoire:
+    resource: "@NanoAgoraBundle/Controller/Examen_laboratoireController.php"
+    type:     annotation
+    prefix:   /examen_laboratoire
+
+agora_examen_rdv:
+    resource: "@NanoAgoraBundle/Controller/Examen_rdvController.php"
+    type:     annotation
+    prefix:   /examen_rdv
+
+agora_horaire:
+    resource: "@NanoAgoraBundle/Controller/HoraireController.php"
+    type:     annotation
+    prefix:   /horaire
+
+agora_laboratoire:
+    resource: "@NanoAgoraBundle/Controller/LaboratoireController.php"
+    type:     annotation
+    prefix:   /laboratoire
+
+agora_maladie:
+    resource: "@NanoAgoraBundle/Controller/MaladieController.php"
+    type:     annotation
+    prefix:   /maladie
+
+agora_medecin:
+    resource: "@NanoAgoraBundle/Controller/MedecinController.php"
+    type:     annotation
+    prefix:   /medecin
+
+agora_notification:
+    resource: "@NanoAgoraBundle/Controller/NotificationController.php"
+    type:     annotation
+    prefix:   /notification
+
+agora_pays:
+    resource: "@NanoagoraBundle/Controller/PaysController.php"
+    type:     annotation
+    prefix:   /pays
+
+fifa_rdv:
+    resource: "@NanoAgoraBundle/Controller/RdvController.php"
+    type:     annotation
+    prefix:   /rdv
+
+fifa_specialite:
+    resource: "@NanoAgoraBundle/Controller/SpecialiteController.php"
+    type:     annotation
+    prefix:   /specialite
+
+fifa_symptome:
+    resource: "@NanoAgoraBundle/Controller/SymptomeController.php"
+    type:     annotation
+    prefix:   /symptome
+
+fifa_ville:
+    resource: "@NanoAgoraBundle/Controller/VilleController.php"
+    type:     annotation
+    prefix:   /ville
+
+
+fifa_utilisateur:
+    resource: "@NanoAgoraBundle/Controller/UtilisateurController.php"
+    type:     annotation
+    prefix:   /utilisateur
+
+
