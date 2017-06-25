@@ -1,32 +1,19 @@
-# To get started with security, check out the documentation:
-# http://symfony.com/doc/current/security.html
 security:
-encoders:
-FOS\UserBundle\Model\UserInterface: sha512
-providers:
-fos_userbundle:
-id: fos_user.user_provider.username_email
-#
-fos_user.user_provider.username_email does not seem to work (OAuth-spec related
-("username + password") ?)
-firewalls:
-oauth_token:
-# Everyone can access
-the access token URL.
-pattern: ^/oauth/v2/token
-security: false
-api:
-pattern: ^/
-fos_oauth: true
-resource
-stateless: true
-cookies
-anonymous: true
-allowed
-doc:
-pattern: ^/
-security: false
-# All URLs are protected
-# OAuth2 protected
-# Do no set session
-# Anonymous access is not
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username_email        # fos_user.user_provider.username_email does not seem to work (OAuth-spec related ("username + password") ?)
+    firewalls:
+        oauth_token:                                   # Everyone can access the access token URL.
+            pattern: ^/oauth/v2/token
+            security: false
+        api:
+            pattern: ^/                               # All URLs are protected
+            fos_oauth: true                            # OAuth2 protected resource
+            stateless: true                            # Do no set session cookies
+            anonymous: true                           # Anonymous access is not allowed          
+        doc:
+            pattern: ^/
+            security: false
