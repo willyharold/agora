@@ -1,6 +1,6 @@
 <?php
 
-namespace Nano\FifaBundle\Entity;
+namespace Nano\AgoraBundle\Entity;
 
 use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
 use Doctrine\ORM\Mapping as ORM;
@@ -25,7 +25,7 @@ class RefreshToken  extends BaseRefreshToken
     protected $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Users")
+     * @ORM\ManyToOne(targetEntity="Utilisateur")
      */
     protected $user;
 }

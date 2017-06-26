@@ -44,7 +44,7 @@ agora_notification:
     prefix:   /notification
 
 agora_pays:
-    resource: "@NanoagoraBundle/Controller/PaysController.php"
+    resource: "@NanoAgoraBundle/Controller/PaysController.php"
     type:     annotation
     prefix:   /pays
 
@@ -59,7 +59,7 @@ agora_specialite:
     prefix:   /specialite
 
 agora_symptome:
-    resource: "@NanoAgoraBundle/Controller/SymptomeController.php"
+    resource: "@NanoAgoraBundle/Controller/Symptome_maladieController.php"
     type:     annotation
     prefix:   /symptome
 
