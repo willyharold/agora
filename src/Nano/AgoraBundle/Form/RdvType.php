@@ -22,7 +22,9 @@ class RdvType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Nano\AgoraBundle\Entity\Rdv'
+            'data_class' => 'Nano\AgoraBundle\Entity\Rdv',
+            'csrf_protection' => false,
+            'allow_extra_fields' => true
         ));
     }
 

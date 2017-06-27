@@ -1,4 +1,4 @@
-agora_evolution:
+agora_evolution_maladie:
     resource: "@NanoAgoraBundle/Controller/Evolution_maladieController.php"
     type:     annotation
     prefix:   /evolution_maladie
@@ -58,10 +58,10 @@ agora_specialite:
     type:     annotation
     prefix:   /specialite
 
-agora_symptome:
+agora_symptome_maladie:
     resource: "@NanoAgoraBundle/Controller/Symptome_maladieController.php"
     type:     annotation
-    prefix:   /symptome
+    prefix:   /symptome_maladie
 
 agora_ville:
     resource: "@NanoAgoraBundle/Controller/VilleController.php"

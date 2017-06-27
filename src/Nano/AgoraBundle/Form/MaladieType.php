@@ -22,7 +22,9 @@ class MaladieType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Nano\AgoraBundle\Entity\Maladie'
+            'data_class' => 'Nano\AgoraBundle\Entity\Maladie',
+            'csrf_protection' => false,
+            'allow_extra_fields' => true
         ));
     }
 

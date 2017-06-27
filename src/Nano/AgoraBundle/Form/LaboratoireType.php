@@ -22,7 +22,9 @@ class LaboratoireType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Nano\AgoraBundle\Entity\Laboratoire'
+            'data_class' => 'Nano\AgoraBundle\Entity\Laboratoire',
+            'csrf_protection' => false,
+            'allow_extra_fields' => true
         ));
     }
 

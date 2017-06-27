@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Medecin
  *
- * @ORM\Table(name="medecin")
+ * @ORM\Table(name="medecin1")
  * @ORM\Entity(repositoryClass="Nano\AgoraBundle\Repository\MedecinRepository")
  */
 class Medecin

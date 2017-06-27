@@ -15,7 +15,9 @@ class Examen_laboratoireType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Nano\AgoraBundle\Entity\Examen_laboratoire'
+            'data_class' => 'Nano\AgoraBundle\Entity\Examen_laboratoire',
+            'csrf_protection' => false,
+            'allow_extra_fields' => true
         ));
     }
 

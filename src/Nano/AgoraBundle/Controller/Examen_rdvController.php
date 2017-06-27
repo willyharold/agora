@@ -3,134 +3,127 @@
 namespace Nano\AgoraBundle\Controller;
 
 use Nano\AgoraBundle\Entity\Examen_rdv;
+use Nano\AgoraBundle\Form\Examen_rdvType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use FOS\RestBundle\Controller\Annotations as Rest;
 
 /**
  * Examen_rdv controller.
  *
- * @Route("examen_rdv")
  */
 class Examen_rdvController extends Controller
 {
     /**
-     * Lists all examen_rdv entities.
-     *
-     * @Route("/", name="examen_rdv_index")
-     * @Method("GET")
+     * @Rest\View()
+     * @Rest\Get("/")
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-
-        $examen_rdvs = $em->getRepository('NanoAgoraBundle:Examen_rdv')->findAll();
-
-        return $this->render('examen_rdv/index.html.twig', array(
-            'examen_rdvs' => $examen_rdvs,
-        ));
+        $entities = $em->getRepository('NanoAgoraBundle:Examen_rdv')->findAll();
+        return $entities;
     }
 
     /**
-     * Creates a new examen_rdv entity.
-     *
-     * @Route("/new", name="examen_rdv_new")
-     * @Method({"GET", "POST"})
+     * @Rest\View()
+     * @Rest\Get("/{id}")
      */
-    public function newAction(Request $request)
-    {
-        $examen_rdv = new Examen_rdv();
-        $form = $this->createForm('Nano\AgoraBundle\Form\Examen_rdvType', $examen_rdv);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($examen_rdv);
-            $em->flush();
-
-            return $this->redirectToRoute('examen_rdv_show', array('id' => $examen_rdv->getId()));
+    public function findAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('NanoAgoraBundle:Examen_rdv')->find($request->get('id'));
+        if (empty($entity)) {
+            $reponse = new JsonResponse(array('message' => "contenu introuvable"), Response::HTTP_INTERNAL_SERVER_ERROR);
+            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
+            return $reponse;
         }
-
-        return $this->render('examen_rdv/new.html.twig', array(
-            'examen_rdv' => $examen_rdv,
-            'form' => $form->createView(),
-        ));
+        return $entity;
     }
 
     /**
-     * Finds and displays a examen_rdv entity.
-     *
-     * @Route("/{id}", name="examen_rdv_show")
-     * @Method("GET")
+     * @Rest\View(statusCode=Response::HTTP_CREATED)
+     * @Rest\Post("/create")
      */
-    public function showAction(Examen_rdv $examen_rdv)
-    {
-        $deleteForm = $this->createDeleteForm($examen_rdv);
+    public function createAction(Request $request) {
+        $entity = new Examen_rdv();
+        $form = $this->createForm(Examen_rdvType::class, $entity);
 
-        return $this->render('examen_rdv/show.html.twig', array(
-            'examen_rdv' => $examen_rdv,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
+        $form->submit($request->request->all()); // Validation des données
 
-    /**
-     * Displays a form to edit an existing examen_rdv entity.
-     *
-     * @Route("/{id}/edit", name="examen_rdv_edit")
-     * @Method({"GET", "POST"})
-     */
-    public function editAction(Request $request, Examen_rdv $examen_rdv)
-    {
-        $deleteForm = $this->createDeleteForm($examen_rdv);
-        $editForm = $this->createForm('Nano\AgoraBundle\Form\Examen_rdvType', $examen_rdv);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('examen_rdv_edit', array('id' => $examen_rdv->getId()));
+        if ($form->isValid()) {
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+                return $entity;
+            } catch (\Doctrine\DBAL\Exception\NotNullConstraintViolationException $e) {
+                $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects ou sont vides"), Response::HTTP_INTERNAL_SERVER_ERROR);
+                $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
+                return $reponse;
+            }
+        } else {
+            $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects"), Response::HTTP_INTERNAL_SERVER_ERROR);
+            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
+            return $reponse;
         }
-
-        return $this->render('examen_rdv/edit.html.twig', array(
-            'examen_rdv' => $examen_rdv,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
     }
 
     /**
-     * Deletes a examen_rdv entity.
-     *
-     * @Route("/{id}", name="examen_rdv_delete")
-     * @Method("DELETE")
+     * @Rest\View()
+     * @Rest\Put("/update/{id}")
      */
-    public function deleteAction(Request $request, Examen_rdv $examen_rdv)
-    {
-        $form = $this->createDeleteForm($examen_rdv);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($examen_rdv);
-            $em->flush();
+    public function updateAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('NanoAgoraBundle:Examen_rdv')->find($request->get('id'));
+        if (empty($entity)) {
+            $reponse = new JsonResponse(array('message' => "contenu introuvable"), Response::HTTP_INTERNAL_SERVER_ERROR);
+            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
+            return $reponse;
         }
-
-        return $this->redirectToRoute('examen_rdv_index');
+        $form = $this->createForm(Examen_rdvType::class, $entity);
+        $form->submit($request->request->all(), true); // Validation des données
+        if ($form->isValid()) {
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $em->merge($entity);
+                $em->flush();
+                return $entity;
+            } catch (\Doctrine\DBAL\Exception\NotNullConstraintViolationException $e) {
+                $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects ou sont vides"), Response::HTTP_INTERNAL_SERVER_ERROR);
+                $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
+                return $reponse;
+            }
+        } else {
+            $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects"), Response::HTTP_INTERNAL_SERVER_ERROR);
+            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
+            return $reponse;
+        }
     }
 
     /**
-     * Creates a form to delete a examen_rdv entity.
-     *
-     * @param Examen_rdv $examen_rdv The examen_rdv entity
-     *
-     * @return \Symfony\Component\Form\Form The form
+     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
+     * @Rest\Delete("/delete/{id}")
      */
-    private function createDeleteForm(Examen_rdv $examen_rdv)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('examen_rdv_delete', array('id' => $examen_rdv->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
+    public function removeAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('NanoAgoraBundle:Examen_rdv')
+            ->find($request->get('id'));
+
+        if ($entity) {
+            try {
+                $em->remove($entity);
+                $em->flush();
+            } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $e) {
+                $reponse = new JsonResponse(array('message' => "ce contenu est utilisé ailleurs"), Response::HTTP_INTERNAL_SERVER_ERROR);
+                $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
+                return $reponse;
+            }
+        }else{
+            $reponse = new JsonResponse(array('message' => "ce contenu est introuvable"), Response::HTTP_INTERNAL_SERVER_ERROR);
+            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
+            return $reponse;
+        }
     }
+
 }
