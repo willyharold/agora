@@ -63,7 +63,12 @@ class Specialite
      */
     private $photo;
 
-   
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Nano\AgoraBundle\Entity\Medecin", inversedBy="specialites")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $medecin;
 
     /**
      * Get id
@@ -217,5 +222,29 @@ class Specialite
     public function getPhoto()
     {
         return $this->photo;
+    }
+
+    /**
+     * Set medecin
+     *
+     * @param \Nano\AgoraBundle\Entity\Medecin $medecin
+     *
+     * @return Specialite
+     */
+    public function setMedecin(\Nano\AgoraBundle\Entity\Medecin $medecin)
+    {
+        $this->medecin = $medecin;
+
+        return $this;
+    }
+
+    /**
+     * Get medecin
+     *
+     * @return \Nano\AgoraBundle\Entity\Medecin
+     */
+    public function getMedecin()
+    {
+        return $this->medecin;
     }
 }

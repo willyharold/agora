@@ -13,7 +13,7 @@ class MaladieType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nom')->add('photo')->add('description');
+        $builder->add('nom')->add('photo')->add('description')->add('symptome_maladie');
     }
     
     /**
@@ -22,9 +22,7 @@ class MaladieType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Nano\AgoraBundle\Entity\Maladie',
-            'csrf_protection' => false,
-            'allow_extra_fields' => true
+            'data_class' => 'Nano\AgoraBundle\Entity\Maladie'
         ));
     }
 

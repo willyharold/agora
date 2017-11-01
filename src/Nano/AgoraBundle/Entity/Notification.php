@@ -29,10 +29,10 @@ class Notification
     private $contenu;
 
     /**
-     * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Utilisateur", mappedBy="notifications")
+     * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Utilisateur", mappedBy="notification")
      * @var $utilisateur[]
      */
-     private $Id_Utilisateur;  
+     private $utilisateurs;
 
     /**
      * Get id

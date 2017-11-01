@@ -13,7 +13,7 @@ class UtilisateurType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nom')->add('prenom')->add('age')->add('nationalite')->add('profession')->add('quartier')->add('numeroTel')->add('photo');
+        $builder->add('nom')->add('prenom')->add('age')->add('nationalite')->add('profession')->add('quartier')->add('numeroTel')->add('photo')->add('message')->add('maladie')->add('notification');
     }
     
     /**
@@ -22,9 +22,7 @@ class UtilisateurType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Nano\AgoraBundle\Entity\Utilisateur',
-            'csrf_protection' => false,
-            'allow_extra_fields' => true
+            'data_class' => 'Nano\AgoraBundle\Entity\Utilisateur'
         ));
     }
 

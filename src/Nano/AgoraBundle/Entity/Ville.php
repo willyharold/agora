@@ -28,11 +28,12 @@ class Ville
      */
     private $nom;
 
-  /**
-     * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Pays", mappedBy="villes")
-     * @var $pays[]
+    /**
+
+     * @ORM\ManyToOne(targetEntity="Nano\AgoraBundle\Entity\Pays", inversedBy="villes")
+
      */
-     private $Id_Pays;
+    private $pays;
     /**
      * Get id
      *
@@ -67,27 +68,38 @@ class Ville
         return $this->nom;
     }
 
+
+
+
+    public function __toString() {
+        return $this->nom;
+    }
+
+
+  
+    
+
     /**
-     * Set utilisateurs
+     * Set pays
      *
-     * @param \Nano\ArgoBundle\Entity\Utilisateur $utilisateurs
+     * @param \Nano\AgoraBundle\Entity\Pays $pays
      *
      * @return Ville
      */
-    public function setUtilisateurs(\Nano\ArgoBundle\Entity\Utilisateur $utilisateurs)
+    public function setPays(\Nano\AgoraBundle\Entity\Pays $pays = null)
     {
-        $this->utilisateurs = $utilisateurs;
+        $this->pays = $pays;
 
         return $this;
     }
 
     /**
-     * Get utilisateurs
+     * Get pays
      *
-     * @return \Nano\ArgoBundle\Entity\Utilisateur
+     * @return \Nano\AgoraBundle\Entity\Pays
      */
-    public function getUtilisateurs()
+    public function getPays()
     {
-        return $this->utilisateurs;
+        return $this->pays;
     }
 }

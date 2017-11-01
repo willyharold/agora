@@ -1,0 +1,24 @@
+symptome_maladie_index:
+    path:     /
+    defaults: { _controller: "NanoAgoraBundle:Symptome_maladie:index" }
+    methods:  GET
+
+symptome_maladie_show:
+    path:     /{id}/show
+    defaults: { _controller: "NanoAgoraBundle:Symptome_maladie:show" }
+    methods:  GET
+
+symptome_maladie_new:
+    path:     /new
+    defaults: { _controller: "NanoAgoraBundle:Symptome_maladie:new" }
+    methods:  [GET, POST]
+
+symptome_maladie_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NanoAgoraBundle:Symptome_maladie:edit" }
+    methods:  [GET, POST]
+
+symptome_maladie_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NanoAgoraBundle:Symptome_maladie:delete" }
+    methods:  DELETE

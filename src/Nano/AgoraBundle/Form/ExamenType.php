@@ -13,7 +13,7 @@ class ExamenType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('designation')->add('prixReel')->add('prixAjouter')->add('prixDomicile')->add('description')->add('recommandation')->add('photo');
+        $builder->add('designation')->add('prixReel')->add('prixAjouter')->add('prixDomicile')->add('description')->add('recommandation')->add('photo')->add('examen_laboratoire')->add('examen_rdv');
     }
     
     /**
@@ -22,9 +22,7 @@ class ExamenType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Nano\AgoraBundle\Entity\Examen',
-            'csrf_protection' => false,
-            'allow_extra_fields' => true
+            'data_class' => 'Nano\AgoraBundle\Entity\Examen'
         ));
     }
 

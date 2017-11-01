@@ -1,0 +1,24 @@
+maladie_index:
+    path:     /
+    defaults: { _controller: "NanoAgoraBundle:Maladie:index" }
+    methods:  GET
+
+maladie_show:
+    path:     /{id}/show
+    defaults: { _controller: "NanoAgoraBundle:Maladie:show" }
+    methods:  GET
+
+maladie_new:
+    path:     /new
+    defaults: { _controller: "NanoAgoraBundle:Maladie:new" }
+    methods:  [GET, POST]
+
+maladie_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NanoAgoraBundle:Maladie:edit" }
+    methods:  [GET, POST]
+
+maladie_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NanoAgoraBundle:Maladie:delete" }
+    methods:  DELETE

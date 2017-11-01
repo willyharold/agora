@@ -1,0 +1,24 @@
+laboratoire_index:
+    path:     /
+    defaults: { _controller: "NanoAgoraBundle:Laboratoire:index" }
+    methods:  GET
+
+laboratoire_show:
+    path:     /{id}/show
+    defaults: { _controller: "NanoAgoraBundle:Laboratoire:show" }
+    methods:  GET
+
+laboratoire_new:
+    path:     /new
+    defaults: { _controller: "NanoAgoraBundle:Laboratoire:new" }
+    methods:  [GET, POST]
+
+laboratoire_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NanoAgoraBundle:Laboratoire:edit" }
+    methods:  [GET, POST]
+
+laboratoire_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NanoAgoraBundle:Laboratoire:delete" }
+    methods:  DELETE

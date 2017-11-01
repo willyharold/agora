@@ -23,7 +23,7 @@
             </tr>
             <tr>
                 <th>Age</th>
-                <td>{% if rdv.age %}{{ rdv.age|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if rdv.age %}{{ rdv.age|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
             <tr>
                 <th>Nationalite</th>
@@ -38,8 +38,8 @@
                 <td>{{ rdv.quartier }}</td>
             </tr>
             <tr>
-                <th>Numero</th>
-                <td>{{ rdv.numero }}</td>
+                <th>Numerotel</th>
+                <td>{{ rdv.numeroTel }}</td>
             </tr>
             <tr>
                 <th>Photo</th>
@@ -64,6 +64,306 @@
             <tr>
                 <th>Dateetape1</th>
                 <td>{% if rdv.dateEtape1 %}{{ rdv.dateEtape1|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Dateheurerdvreel</th>
+                <td>{% if rdv.dateHeureRdvReel %}{{ rdv.dateHeureRdvReel|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Optionsuivie</th>
+                <td>{% if rdv.optionSuivie %}{{ rdv.optionSuivie|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Dateetape2</th>
+                <td>{% if rdv.dateEtape2 %}{{ rdv.dateEtape2|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Dateheureexamen</th>
+                <td>{% if rdv.dateHeureExamen %}{{ rdv.dateHeureExamen|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Dateetape3</th>
+                <td>{% if rdv.dateEtape3 %}{{ rdv.dateEtape3|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Dateetape4</th>
+                <td>{% if rdv.dateEtape4 %}{{ rdv.dateEtape4|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Dateetape5</th>
+                <td>{% if rdv.dateEtape5 %}{{ rdv.dateEtape5|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Lieuconsultationreel</th>
+                <td>{{ rdv.lieuConsultationReel }}</td>
+            </tr>
+            <tr>
+                <th>Lieuexamen</th>
+                <td>{{ rdv.lieuExamen }}</td>
+            </tr>
+            <tr>
+                <th>Motifconsultationmedecin</th>
+                <td>{{ rdv.motifConsultationMedecin }}</td>
+            </tr>
+            <tr>
+                <th>Diagnosticfinal</th>
+                <td>{{ rdv.diagnosticFinal }}</td>
+            </tr>
+            <tr>
+                <th>Traitementfinal</th>
+                <td>{{ rdv.traitementFinal }}</td>
+            </tr>
+            <tr>
+                <th>Historiquemaladie</th>
+                <td>{{ rdv.historiqueMaladie }}</td>
+            </tr>
+            <tr>
+                <th>Antecedentprenataux</th>
+                <td>{{ rdv.antecedentPrenataux }}</td>
+            </tr>
+            <tr>
+                <th>Antecedentnataux</th>
+                <td>{{ rdv.antecedentNataux }}</td>
+            </tr>
+            <tr>
+                <th>Antecedentpostnataux</th>
+                <td>{{ rdv.antecedentPostnataux }}</td>
+            </tr>
+            <tr>
+                <th>Antecedentimmunoallergique</th>
+                <td>{{ rdv.antecedentImmunoallergique }}</td>
+            </tr>
+            <tr>
+                <th>Antecedentenvironnementaux</th>
+                <td>{{ rdv.antecedentEnvironnementaux }}</td>
+            </tr>
+            <tr>
+                <th>Alimentation</th>
+                <td>{{ rdv.alimentation }}</td>
+            </tr>
+            <tr>
+                <th>Developpementpsychomoteur</th>
+                <td>{{ rdv.developpementPsychomoteur }}</td>
+            </tr>
+            <tr>
+                <th>Antecedentmedicaux</th>
+                <td>{{ rdv.antecedentMedicaux }}</td>
+            </tr>
+            <tr>
+                <th>Antecedentchirugicaux</th>
+                <td>{{ rdv.antecedentChirugicaux }}</td>
+            </tr>
+            <tr>
+                <th>Antecedenttoxicologiques</th>
+                <td>{{ rdv.antecedentToxicologiques }}</td>
+            </tr>
+            <tr>
+                <th>Antecedentsocioeconomiques</th>
+                <td>{{ rdv.antecedentSocioEconomiques }}</td>
+            </tr>
+            <tr>
+                <th>Antecedentgynecologiques</th>
+                <td>{{ rdv.antecedentGynecologiques }}</td>
+            </tr>
+            <tr>
+                <th>Antecedentobstetricaux</th>
+                <td>{{ rdv.antecedentObstetricaux }}</td>
+            </tr>
+            <tr>
+                <th>Antecedentfamilliaux</th>
+                <td>{{ rdv.antecedentFamilliaux }}</td>
+            </tr>
+            <tr>
+                <th>Signegeneraux</th>
+                <td>{{ rdv.signeGeneraux }}</td>
+            </tr>
+            <tr>
+                <th>S</th>
+                <td>{{ rdv.s }}</td>
+            </tr>
+            <tr>
+                <th>Systemepulmonaire</th>
+                <td>{{ rdv.systemePulmonaire }}</td>
+            </tr>
+            <tr>
+                <th>Sytemecardiovasculaire</th>
+                <td>{{ rdv.sytemeCardiovasculaire }}</td>
+            </tr>
+            <tr>
+                <th>Systemehepatogastrico</th>
+                <td>{{ rdv.systemeHepatogastrico }}</td>
+            </tr>
+            <tr>
+                <th>Systemehepatogastricoenterologique</th>
+                <td>{{ rdv.systemeHepatogastricoenterologique }}</td>
+            </tr>
+            <tr>
+                <th>Systemeendocrinien</th>
+                <td>{{ rdv.systemeEndocrinien }}</td>
+            </tr>
+            <tr>
+                <th>Systemeneurologique</th>
+                <td>{{ rdv.systemeNeurologique }}</td>
+            </tr>
+            <tr>
+                <th>Systemehematologique</th>
+                <td>{{ rdv.systemeHematologique }}</td>
+            </tr>
+            <tr>
+                <th>Systemeurogenital</th>
+                <td>{{ rdv.systemeUrogenital }}</td>
+            </tr>
+            <tr>
+                <th>Systemedermatologique</th>
+                <td>{{ rdv.systemeDermatologique }}</td>
+            </tr>
+            <tr>
+                <th>Systemelocomoteur</th>
+                <td>{{ rdv.systemeLocomoteur }}</td>
+            </tr>
+            <tr>
+                <th>Systemeophtamologique</th>
+                <td>{{ rdv.systemeOphtamologique }}</td>
+            </tr>
+            <tr>
+                <th>Systemeotorhinolaryngologique</th>
+                <td>{{ rdv.systemeOtorhinolaryngologique }}</td>
+            </tr>
+            <tr>
+                <th>Etatgeneral</th>
+                <td>{{ rdv.etatGeneral }}</td>
+            </tr>
+            <tr>
+                <th>Tensionarterielle</th>
+                <td>{{ rdv.tensionArterielle }}</td>
+            </tr>
+            <tr>
+                <th>Temperature</th>
+                <td>{{ rdv.temperature }}</td>
+            </tr>
+            <tr>
+                <th>Pouls</th>
+                <td>{{ rdv.pouls }}</td>
+            </tr>
+            <tr>
+                <th>Referermedecin</th>
+                <td>{{ rdv.refererMedecin }}</td>
+            </tr>
+            <tr>
+                <th>Saturation</th>
+                <td>{{ rdv.saturation }}</td>
+            </tr>
+            <tr>
+                <th>Glycemie</th>
+                <td>{{ rdv.glycemie }}</td>
+            </tr>
+            <tr>
+                <th>Poids</th>
+                <td>{{ rdv.poids }}</td>
+            </tr>
+            <tr>
+                <th>Imc</th>
+                <td>{{ rdv.iMC }}</td>
+            </tr>
+            <tr>
+                <th>Examentopographique</th>
+                <td>{{ rdv.examenTopographique }}</td>
+            </tr>
+            <tr>
+                <th>Teteoucou</th>
+                <td>{{ rdv.teteOuCou }}</td>
+            </tr>
+            <tr>
+                <th>Thorax</th>
+                <td>{{ rdv.thorax }}</td>
+            </tr>
+            <tr>
+                <th>Abdomen</th>
+                <td>{{ rdv.abdomen }}</td>
+            </tr>
+            <tr>
+                <th>Organegenitoexterne</th>
+                <td>{{ rdv.organeGenitoexterne }}</td>
+            </tr>
+            <tr>
+                <th>Examenrachis</th>
+                <td>{{ rdv.examenRachis }}</td>
+            </tr>
+            <tr>
+                <th>Examenmembres</th>
+                <td>{{ rdv.examenMembres }}</td>
+            </tr>
+            <tr>
+                <th>Examenneurologues</th>
+                <td>{{ rdv.examenNeurologues }}</td>
+            </tr>
+            <tr>
+                <th>Examensystemique</th>
+                <td>{{ rdv.examenSystemique }}</td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ rdv.etat }}</td>
+            </tr>
+            <tr>
+                <th>Prixexamen</th>
+                <td>{{ rdv.prixExamen }}</td>
+            </tr>
+            <tr>
+                <th>Appareilcardiovasculaire</th>
+                <td>{{ rdv.appareilCardiovasculaire }}</td>
+            </tr>
+            <tr>
+                <th>Appareilrespiratoire</th>
+                <td>{{ rdv.appareilRespiratoire }}</td>
+            </tr>
+            <tr>
+                <th>Appareildigestif</th>
+                <td>{{ rdv.appareilDigestif }}</td>
+            </tr>
+            <tr>
+                <th>Appareilurogenital</th>
+                <td>{{ rdv.appareilUrogenital }}</td>
+            </tr>
+            <tr>
+                <th>Appareillocomoteur</th>
+                <td>{{ rdv.appareilLocomoteur }}</td>
+            </tr>
+            <tr>
+                <th>Systemesplenoganglionnaire</th>
+                <td>{{ rdv.systemeSplenoganglionnaire }}</td>
+            </tr>
+            <tr>
+                <th>Systemenerveux</th>
+                <td>{{ rdv.systemeNerveux }}</td>
+            </tr>
+            <tr>
+                <th>Antecedentcontributif</th>
+                <td>{{ rdv.antecedentContributif }}</td>
+            </tr>
+            <tr>
+                <th>Resumesyndromique</th>
+                <td>{{ rdv.resumeSyndromique }}</td>
+            </tr>
+            <tr>
+                <th>Hypothesediagnostics</th>
+                <td>{{ rdv.hypotheseDiagnostics }}</td>
+            </tr>
+            <tr>
+                <th>Diagnostifdifferentiels</th>
+                <td>{{ rdv.diagnostifDifferentiels }}</td>
+            </tr>
+            <tr>
+                <th>Bilanbiologiques</th>
+                <td>{{ rdv.bilanBiologiques }}</td>
+            </tr>
+            <tr>
+                <th>Bilanmorphologiques</th>
+                <td>{{ rdv.bilanMorphologiques }}</td>
+            </tr>
+            <tr>
+                <th>Traitementpreleminaire</th>
+                <td>{{ rdv.traitementPreleminaire }}</td>
             </tr>
         </tbody>
     </table>

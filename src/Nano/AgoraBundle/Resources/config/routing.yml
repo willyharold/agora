@@ -1,0 +1,64 @@
+nano_agora_evolution_maladie:
+    resource: "@NanoAgoraBundle/Resources/config/routing/evolution_maladie.yml"
+    prefix:   /evolution_maladie
+
+nano_agora_rdv:
+    resource: "@NanoAgoraBundle/Resources/config/routing/rdv.yml"
+    prefix:   /rdv
+
+nano_agora_ville:
+    resource: "@NanoAgoraBundle/Resources/config/routing/ville.yml"
+    prefix:   /ville
+
+nano_agora_horaire:
+    resource: "@NanoAgoraBundle/Resources/config/routing/horaire.yml"
+    prefix:   /horaire
+
+nano_agora_examen_rdv:
+    resource: "@NanoAgoraBundle/Resources/config/routing/examen_rdv.yml"
+    prefix:   /examen_rdv
+
+nano_agora_laboratoire:
+    resource: "@NanoAgoraBundle/Resources/config/routing/laboratoire.yml"
+    prefix:   /laboratoire
+
+nano_agora_notification:
+    resource: "@NanoAgoraBundle/Resources/config/routing/notification.yml"
+    prefix:   /notification
+
+nano_agora_examen:
+    resource: "@NanoAgoraBundle/Resources/config/routing/examen.yml"
+    prefix:   /examen
+
+nano_agora_symptome_maladie:
+    resource: "@NanoAgoraBundle/Resources/config/routing/symptome_maladie.yml"
+    prefix:   /symptome_maladie
+
+nano_agora_medecin:
+        resource: "@NanoAgoraBundle/Resources/config/routing/medecin.yml"
+        prefix:   /medecin
+
+nano_agora_maladie:
+        resource: "@NanoAgoraBundle/Resources/config/routing/maladie.yml"
+        prefix:   /maladie
+
+nano_agora_utilisateur:
+        resource: "@NanoAgoraBundle/Resources/config/routing/utilisateur.yml"
+        prefix:   /utilisateur
+
+nano_agora_specialite:
+        resource: "@NanoAgoraBundle/Resources/config/routing/specialite.yml"
+        prefix:   /specialite
+
+nano_agora_examen_laboratoire:
+        resource: "@NanoAgoraBundle/Resources/config/routing/examen_laboratoire.yml"
+        prefix:   /examen_laboratoire
+
+nano_agora_message:
+        resource: "@NanoAgoraBundle/Resources/config/routing/message.yml"
+        prefix:   /message
+
+nano_agora_pays:
+        resource: "@NanoAgoraBundle/Resources/config/routing/pays.yml"
+        prefix:   /pays
+

@@ -43,16 +43,16 @@ class Message
     private $etat;
 
      /**
-     * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Utilisateur", mappedBy="messages")
-     * @var $utilisateur[]
+     * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Utilisateur", mappedBy="message")
+     * @var Utilisateur[]
      */
-     private $Id_Utilisateur;
+     private $utilisateurs;
 
      /**
-     * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Medecin", mappedBy="messages")
-     * @var $medecin[]
+     * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Medecin", mappedBy="message")
+     * @var Medecin[]
      */
-     private $Id_Medecin;
+     private $medecins;
 
     /**
      * Get id
@@ -144,71 +144,73 @@ class Message
         $this->Id_Medecin = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+
     /**
-     * Add idUtilisateur
+     * Add utilisateur
      *
-     * @param \Nano\AgoraBundle\Entity\Utilisateur $idUtilisateur
+     * @param \Nano\AgoraBundle\Entity\Utilisateur $utilisateur
      *
      * @return Message
      */
-    public function addIdUtilisateur(\Nano\AgoraBundle\Entity\Utilisateur $idUtilisateur)
+    public function addUtilisateur(\Nano\AgoraBundle\Entity\Utilisateur $utilisateur)
     {
-        $this->Id_Utilisateur[] = $idUtilisateur;
+        $this->utilisateurs[] = $utilisateur;
 
         return $this;
     }
 
     /**
-     * Remove idUtilisateur
+     * Remove utilisateur
      *
-     * @param \Nano\AgoraBundle\Entity\Utilisateur $idUtilisateur
+     * @param \Nano\AgoraBundle\Entity\Utilisateur $utilisateur
      */
-    public function removeIdUtilisateur(\Nano\AgoraBundle\Entity\Utilisateur $idUtilisateur)
+    public function removeUtilisateur(\Nano\AgoraBundle\Entity\Utilisateur $utilisateur)
     {
-        $this->Id_Utilisateur->removeElement($idUtilisateur);
+        $this->utilisateurs->removeElement($utilisateur);
     }
 
     /**
-     * Get idUtilisateur
+     * Get utilisateurs
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getIdUtilisateur()
+    public function getUtilisateurs()
     {
-        return $this->Id_Utilisateur;
+        return $this->utilisateurs;
     }
 
     /**
-     * Add idMedecin
+     * Add medecin
      *
-     * @param \Nano\AgoraBundle\Entity\Medecin $idMedecin
+     * @param \Nano\AgoraBundle\Entity\Medecin $medecin
      *
      * @return Message
      */
-    public function addIdMedecin(\Nano\AgoraBundle\Entity\Medecin $idMedecin)
+    public function addMedecin(\Nano\AgoraBundle\Entity\Medecin $medecin)
     {
-        $this->Id_Medecin[] = $idMedecin;
+        $this->medecins[] = $medecin;
 
         return $this;
     }
 
     /**
-     * Remove idMedecin
+     * Remove medecin
      *
-     * @param \Nano\AgoraBundle\Entity\Medecin $idMedecin
+     * @param \Nano\AgoraBundle\Entity\Medecin $medecin
      */
-    public function removeIdMedecin(\Nano\AgoraBundle\Entity\Medecin $idMedecin)
+    public function removeMedecin(\Nano\AgoraBundle\Entity\Medecin $medecin)
     {
-        $this->Id_Medecin->removeElement($idMedecin);
+        $this->medecins->removeElement($medecin);
     }
 
     /**
-     * Get idMedecin
+     * Get medecins
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getIdMedecin()
+    public function getMedecins()
     {
-        return $this->Id_Medecin;
+        return $this->medecins;
     }
 }

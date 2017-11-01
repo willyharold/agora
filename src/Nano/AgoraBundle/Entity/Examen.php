@@ -70,6 +70,18 @@ class Examen
      */
     private $photo;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Nano\AgoraBundle\Entity\Examen_laboratoire", inversedBy="examens")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $examen_laboratoire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Nano\AgoraBundle\Entity\Examen_rdv", inversedBy="examens")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $examen_rdv;
+
 
     /**
      * Get id
@@ -247,5 +259,57 @@ class Examen
     public function getPhoto()
     {
         return $this->photo;
+    }
+
+    /**
+     * Set examenLaboratoire
+     *
+     * @param \Nano\AgoraBundle\Entity\Examen_laboratoire $examenLaboratoire
+     *
+     * @return Examen
+     */
+    public function setExamenLaboratoire(\Nano\AgoraBundle\Entity\Examen_laboratoire $examenLaboratoire)
+    {
+        $this->examen_laboratoire = $examenLaboratoire;
+
+        return $this;
+    }
+
+    /**
+     * Get examenLaboratoire
+     *
+     * @return \Nano\AgoraBundle\Entity\Examen_laboratoire
+     */
+    public function getExamenLaboratoire()
+    {
+        return $this->examen_laboratoire;
+    }
+
+
+
+
+
+    /**
+     * Set examenRdv
+     *
+     * @param \Nano\AgoraBundle\Entity\Examen_rdv $examenRdv
+     *
+     * @return Examen
+     */
+    public function setExamenRdv(\Nano\AgoraBundle\Entity\Examen_rdv $examenRdv)
+    {
+        $this->examen_rdv = $examenRdv;
+
+        return $this;
+    }
+
+    /**
+     * Get examenRdv
+     *
+     * @return \Nano\AgoraBundle\Entity\Examen_rdv
+     */
+    public function getExamenRdv()
+    {
+        return $this->examen_rdv;
     }
 }

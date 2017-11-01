@@ -1,0 +1,24 @@
+examen_index:
+    path:     /
+    defaults: { _controller: "NanoAgoraBundle:Examen:index" }
+    methods:  GET
+
+examen_show:
+    path:     /{id}/show
+    defaults: { _controller: "NanoAgoraBundle:Examen:show" }
+    methods:  GET
+
+examen_new:
+    path:     /new
+    defaults: { _controller: "NanoAgoraBundle:Examen:new" }
+    methods:  [GET, POST]
+
+examen_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NanoAgoraBundle:Examen:edit" }
+    methods:  [GET, POST]
+
+examen_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NanoAgoraBundle:Examen:delete" }
+    methods:  DELETE

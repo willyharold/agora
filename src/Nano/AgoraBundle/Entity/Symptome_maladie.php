@@ -36,10 +36,10 @@ class Symptome_maladie
     private $caracteristique;
 
    /**
-     * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Maladie", mappedBy="symptomes")
-     * @var $maladie[]
+     * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Maladie", mappedBy="symptome_maladie")
+     * @var $Maladie[]
      */
-     private $Id_Maladie;
+     private $maladies;
 
     /**
      * Get id
@@ -106,37 +106,43 @@ class Symptome_maladie
         $this->Id_Maladie = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    
+
     /**
-     * Add idMaladie
+     * Add malady
      *
-     * @param \Nano\AgoraBundle\Entity\Maladie $idMaladie
+     * @param \Nano\AgoraBundle\Entity\Maladie $malady
      *
      * @return Symptome_maladie
      */
-    public function addIdMaladie(\Nano\AgoraBundle\Entity\Maladie $idMaladie)
+    public function addMalady(\Nano\AgoraBundle\Entity\Maladie $malady)
     {
-        $this->Id_Maladie[] = $idMaladie;
+        $this->maladies[] = $malady;
 
         return $this;
     }
 
     /**
-     * Remove idMaladie
+     * Remove malady
      *
-     * @param \Nano\AgoraBundle\Entity\Maladie $idMaladie
+     * @param \Nano\AgoraBundle\Entity\Maladie $malady
      */
-    public function removeIdMaladie(\Nano\AgoraBundle\Entity\Maladie $idMaladie)
+    public function removeMalady(\Nano\AgoraBundle\Entity\Maladie $malady)
     {
-        $this->Id_Maladie->removeElement($idMaladie);
+        $this->maladies->removeElement($malady);
     }
 
     /**
-     * Get idMaladie
+     * Get maladies
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getIdMaladie()
+    public function getMaladies()
     {
-        return $this->Id_Maladie;
+        return $this->maladies;
+    }
+
+    public function __toString() {
+        return $this->nom;
     }
 }

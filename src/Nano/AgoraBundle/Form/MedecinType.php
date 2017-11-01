@@ -13,7 +13,7 @@ class MedecinType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nom')->add('prenom')->add('photo')->add('description')->add('localisationCabinet');
+        $builder->add('nom')->add('prenom')->add('photo')->add('description')->add('localisationCabinet')->add('horaire')->add('message');
     }
     
     /**
@@ -22,10 +22,7 @@ class MedecinType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Nano\AgoraBundle\Entity\Medecin',
-            'csrf_protection' => false,
-            'allow_extra_fields' => true
-
+            'data_class' => 'Nano\AgoraBundle\Entity\Medecin'
         ));
     }
 

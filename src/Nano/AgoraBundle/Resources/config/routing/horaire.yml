@@ -1,0 +1,24 @@
+horaire_index:
+    path:     /
+    defaults: { _controller: "NanoAgoraBundle:Horaire:index" }
+    methods:  GET
+
+horaire_show:
+    path:     /{id}/show
+    defaults: { _controller: "NanoAgoraBundle:Horaire:show" }
+    methods:  GET
+
+horaire_new:
+    path:     /new
+    defaults: { _controller: "NanoAgoraBundle:Horaire:new" }
+    methods:  [GET, POST]
+
+horaire_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NanoAgoraBundle:Horaire:edit" }
+    methods:  [GET, POST]
+
+horaire_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NanoAgoraBundle:Horaire:delete" }
+    methods:  DELETE

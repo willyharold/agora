@@ -1,0 +1,24 @@
+examen_laboratoire_index:
+    path:     /
+    defaults: { _controller: "NanoAgoraBundle:Examen_laboratoire:index" }
+    methods:  GET
+
+examen_laboratoire_show:
+    path:     /{id}/show
+    defaults: { _controller: "NanoAgoraBundle:Examen_laboratoire:show" }
+    methods:  GET
+
+examen_laboratoire_new:
+    path:     /new
+    defaults: { _controller: "NanoAgoraBundle:Examen_laboratoire:new" }
+    methods:  [GET, POST]
+
+examen_laboratoire_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NanoAgoraBundle:Examen_laboratoire:edit" }
+    methods:  [GET, POST]
+
+examen_laboratoire_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NanoAgoraBundle:Examen_laboratoire:delete" }
+    methods:  DELETE

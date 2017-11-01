@@ -44,6 +44,18 @@ class Maladie
 
 
     /**
+     * @ORM\ManyToOne(targetEntity="Nano\AgoraBundle\Entity\Symptome_maladie", inversedBy="maladies")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $symptome_maladie;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Utilisateur", mappedBy="maladie")
+     * @var $utilisateur[]
+     */
+    private $utilisateurs;
+
+    /**
      * Get id
      *
      * @return int
@@ -123,5 +135,70 @@ class Maladie
     public function getDescription()
     {
         return $this->description;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->utilisateurs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set symptomeMaladie
+     *
+     * @param \Nano\AgoraBundle\Entity\Symptome_maladie $symptomeMaladie
+     *
+     * @return Maladie
+     */
+    public function setSymptomeMaladie(\Nano\AgoraBundle\Entity\Symptome_maladie $symptomeMaladie)
+    {
+        $this->symptome_maladie = $symptomeMaladie;
+
+        return $this;
+    }
+
+    /**
+     * Get symptomeMaladie
+     *
+     * @return \Nano\AgoraBundle\Entity\Symptome_maladie
+     */
+    public function getSymptomeMaladie()
+    {
+        return $this->symptome_maladie;
+    }
+
+    /**
+     * Add utilisateur
+     *
+     * @param \Nano\AgoraBundle\Entity\Utilisateur $utilisateur
+     *
+     * @return Maladie
+     */
+    public function addUtilisateur(\Nano\AgoraBundle\Entity\Utilisateur $utilisateur)
+    {
+        $this->utilisateurs[] = $utilisateur;
+
+        return $this;
+    }
+
+    /**
+     * Remove utilisateur
+     *
+     * @param \Nano\AgoraBundle\Entity\Utilisateur $utilisateur
+     */
+    public function removeUtilisateur(\Nano\AgoraBundle\Entity\Utilisateur $utilisateur)
+    {
+        $this->utilisateurs->removeElement($utilisateur);
+    }
+
+    /**
+     * Get utilisateurs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUtilisateurs()
+    {
+        return $this->utilisateurs;
     }
 }

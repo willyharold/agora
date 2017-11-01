@@ -3,12 +3,9 @@
 namespace Nano\AgoraBundle\Controller;
 
 use Nano\AgoraBundle\Entity\Rdv;
-use Nano\AgoraBundle\Form\RdvType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\Controller\Annotations as Rest;
+
 
 /**
  * Rdv controller.
@@ -17,113 +14,112 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 class RdvController extends Controller
 {
     /**
-     * @Rest\View()
-     * @Rest\Get("/")
+     * Lists all rdv entities.
+     *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('NanoAgoraBundle:Rdv')->findAll();
-        return $entities;
+
+        $rdvs = $em->getRepository('NanoAgoraBundle:Rdv')->findAll();
+
+        return $this->render('rdv/index.html.twig', array(
+            'rdvs' => $rdvs,
+        ));
     }
 
     /**
-     * @Rest\View()
-     * @Rest\Get("/{id}")
+     * Creates a new rdv entity.
+     *
      */
-    public function findAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('NanoAgoraBundle:Rdv')->find($request->get('id'));
-        if (empty($entity)) {
-            $reponse = new JsonResponse(array('message' => "contenu introuvable"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
+    public function newAction(Request $request)
+    {
+        $rdv = new Rdv();
+        $form = $this->createForm('Nano\AgoraBundle\Form\RdvType', $rdv);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($rdv);
+            $em->flush();
+
+            return $this->redirectToRoute('rdv_show', array('id' => $rdv->getId()));
         }
-        return $entity;
+
+        return $this->render('rdv/new.html.twig', array(
+            'rdv' => $rdv,
+            'form' => $form->createView(),
+        ));
     }
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_CREATED)
-     * @Rest\Post("/create")
+     * Finds and displays a rdv entity.
+     *
      */
-    public function createAction(Request $request) {
-        $entity = new Rdv();
-        $form = $this->createForm(RdvType::class, $entity);
+    public function showAction(Rdv $rdv)
+    {
+        $deleteForm = $this->createDeleteForm($rdv);
 
-        $form->submit($request->request->all()); // Validation des données
-
-        if ($form->isValid()) {
-            try {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($entity);
-                $em->flush();
-                return $entity;
-            } catch (\Doctrine\DBAL\Exception\NotNullConstraintViolationException $e) {
-                $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects ou sont vides"), Response::HTTP_INTERNAL_SERVER_ERROR);
-                $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-                return $reponse;
-            }
-        } else {
-            $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
-        }
+        return $this->render('rdv/show.html.twig', array(
+            'rdv' => $rdv,
+            'delete_form' => $deleteForm->createView(),
+        ));
     }
 
     /**
-     * @Rest\View()
-     * @Rest\Put("/update/{id}")
+     * Displays a form to edit an existing rdv entity.
+     *
      */
-    public function updateAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('NanoAgoraBundle:Rdv')->find($request->get('id'));
-        if (empty($entity)) {
-            $reponse = new JsonResponse(array('message' => "contenu introuvable"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
+    public function editAction(Request $request, Rdv $rdv)
+    {
+        $deleteForm = $this->createDeleteForm($rdv);
+        $editForm = $this->createForm('Nano\AgoraBundle\Form\RdvType', $rdv);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('rdv_edit', array('id' => $rdv->getId()));
         }
-        $form = $this->createForm(RdvType::class, $entity);
-        $form->submit($request->request->all(), true); // Validation des données
-        if ($form->isValid()) {
-            try {
-                $em = $this->getDoctrine()->getManager();
-                $em->merge($entity);
-                $em->flush();
-                return $entity;
-            } catch (\Doctrine\DBAL\Exception\NotNullConstraintViolationException $e) {
-                $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects ou sont vides"), Response::HTTP_INTERNAL_SERVER_ERROR);
-                $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-                return $reponse;
-            }
-        } else {
-            $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
-        }
+
+        return $this->render('rdv/edit.html.twig', array(
+            'rdv' => $rdv,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
     }
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
-     * @Rest\Delete("/delete/{id}")
+     * Deletes a rdv entity.
+     *
      */
-    public function removeAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('NanoAgoraBundle:Rdv')
-            ->find($request->get('id'));
+    public function deleteAction(Request $request, Rdv $rdv)
+    {
+        $form = $this->createDeleteForm($rdv);
+        $form->handleRequest($request);
 
-        if ($entity) {
-            try {
-                $em->remove($entity);
-                $em->flush();
-            } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $e) {
-                $reponse = new JsonResponse(array('message' => "ce contenu est utilisé ailleurs"), Response::HTTP_INTERNAL_SERVER_ERROR);
-                $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-                return $reponse;
-            }
-        }else{
-            $reponse = new JsonResponse(array('message' => "ce contenu est introuvable"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($rdv);
+            $em->flush();
         }
+
+        return $this->redirectToRoute('rdv_index');
     }
 
+    /**
+     * Creates a form to delete a rdv entity.
+     *
+     * @param Rdv $rdv The rdv entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(Rdv $rdv)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('rdv_delete', array('id' => $rdv->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
+    }
 }

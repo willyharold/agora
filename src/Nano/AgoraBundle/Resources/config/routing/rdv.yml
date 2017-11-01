@@ -1,0 +1,24 @@
+rdv_index:
+    path:     /
+    defaults: { _controller: "NanoAgoraBundle:Rdv:index" }
+    methods:  GET
+
+rdv_show:
+    path:     /{id}/show
+    defaults: { _controller: "NanoAgoraBundle:Rdv:show" }
+    methods:  GET
+
+rdv_new:
+    path:     /new
+    defaults: { _controller: "NanoAgoraBundle:Rdv:new" }
+    methods:  [GET, POST]
+
+rdv_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NanoAgoraBundle:Rdv:edit" }
+    methods:  [GET, POST]
+
+rdv_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NanoAgoraBundle:Rdv:delete" }
+    methods:  DELETE

@@ -13,7 +13,7 @@ class SpecialiteType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('designation')->add('prixRdv')->add('prixDomicile')->add('pourcentage')->add('description')->add('photo');
+        $builder->add('designation')->add('prixRdv')->add('prixDomicile')->add('pourcentage')->add('description')->add('photo')->add('medecin');
     }
     
     /**
@@ -22,9 +22,7 @@ class SpecialiteType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Nano\AgoraBundle\Entity\Specialite',
-            'csrf_protection' => false,
-            'allow_extra_fields' => true
+            'data_class' => 'Nano\AgoraBundle\Entity\Specialite'
         ));
     }
 

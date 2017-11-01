@@ -43,10 +43,10 @@ class Evolution_maladie
     private $dateEnregistrement;
 
     /**
-     * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Rdv", mappedBy="evolutions")
+     * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Rdv", mappedBy="evolution")
      * @var $rdv[]
      */
-     private $Id_Rdv;
+     private $rdvs;
 
     /**
      * Get id

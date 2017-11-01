@@ -1,16 +1,4 @@
-NelmioApiDocBundle:
-    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
-    prefix: /api/doc
+nano_agora:
+    resource: "@NanoAgoraBundle/Resources/config/routing.yml"
+    prefix:   /
 
-fos_oauth_server_token:
-    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
-
-#les routes de la page d'aministration
-nanoagora_admin:
-    resource: "@NanoAgoraBundle/Resources/config/admin_routing.yml"
-    prefix: /api/admin
-
-#les routes de la page du simple user
-nanoagora_user:
-    resource: "@NanoAgoraBundle/Resources/config/user_routing.yml"
-    prefix: /api

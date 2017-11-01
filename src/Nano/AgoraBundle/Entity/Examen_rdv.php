@@ -39,19 +39,19 @@ class Examen_rdv
      * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Rdv", mappedBy="examen_rdv")
      * @var $rdv[]
      */
-     private $Id_Rdv;
+     private $rdvs;
 
      /**
      * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Examen", mappedBy="examen_rdv")
      * @var $examen[]
      */
-     private $Id_Examen;
-
+     private $examens;
+    
       /**
      * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Laboratoire", mappedBy="examen_rdv")
      * @var $laboratoire[]
      */
-     private $Id_Laboratoire;
+     private $laboratoires;
 
 
     /**
@@ -221,5 +221,107 @@ class Examen_rdv
     public function getIdLaboratoire()
     {
         return $this->Id_Laboratoire;
+    }
+
+    /**
+     * Add rdv
+     *
+     * @param \Nano\AgoraBundle\Entity\Rdv $rdv
+     *
+     * @return Examen_rdv
+     */
+    public function addRdv(\Nano\AgoraBundle\Entity\Rdv $rdv)
+    {
+        $this->rdvs[] = $rdv;
+
+        return $this;
+    }
+
+    /**
+     * Remove rdv
+     *
+     * @param \Nano\AgoraBundle\Entity\Rdv $rdv
+     */
+    public function removeRdv(\Nano\AgoraBundle\Entity\Rdv $rdv)
+    {
+        $this->rdvs->removeElement($rdv);
+    }
+
+    /**
+     * Get rdvs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRdvs()
+    {
+        return $this->rdvs;
+    }
+
+    /**
+     * Add examen
+     *
+     * @param \Nano\AgoraBundle\Entity\Examen $examen
+     *
+     * @return Examen_rdv
+     */
+    public function addExamen(\Nano\AgoraBundle\Entity\Examen $examen)
+    {
+        $this->examens[] = $examen;
+
+        return $this;
+    }
+
+    /**
+     * Remove examen
+     *
+     * @param \Nano\AgoraBundle\Entity\Examen $examen
+     */
+    public function removeExamen(\Nano\AgoraBundle\Entity\Examen $examen)
+    {
+        $this->examens->removeElement($examen);
+    }
+
+    /**
+     * Get examens
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getExamens()
+    {
+        return $this->examens;
+    }
+
+    /**
+     * Add laboratoire
+     *
+     * @param \Nano\AgoraBundle\Entity\Laboratoire $laboratoire
+     *
+     * @return Examen_rdv
+     */
+    public function addLaboratoire(\Nano\AgoraBundle\Entity\Laboratoire $laboratoire)
+    {
+        $this->laboratoires[] = $laboratoire;
+
+        return $this;
+    }
+
+    /**
+     * Remove laboratoire
+     *
+     * @param \Nano\AgoraBundle\Entity\Laboratoire $laboratoire
+     */
+    public function removeLaboratoire(\Nano\AgoraBundle\Entity\Laboratoire $laboratoire)
+    {
+        $this->laboratoires->removeElement($laboratoire);
+    }
+
+    /**
+     * Get laboratoires
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLaboratoires()
+    {
+        return $this->laboratoires;
     }
 }

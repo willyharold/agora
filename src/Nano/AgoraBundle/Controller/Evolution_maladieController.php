@@ -3,12 +3,8 @@
 namespace Nano\AgoraBundle\Controller;
 
 use Nano\AgoraBundle\Entity\Evolution_maladie;
-use Nano\AgoraBundle\Form\Evolution_maladieType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\Controller\Annotations as Rest;
 
 /**
  * Evolution_maladie controller.
@@ -17,113 +13,112 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 class Evolution_maladieController extends Controller
 {
     /**
-     * @Rest\View()
-     * @Rest\Get("/")
+     * Lists all evolution_maladie entities.
+     *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('NanoAgoraBundle:Evolution_maladie')->findAll();
-        return $entities;
+
+        $evolution_maladies = $em->getRepository('NanoAgoraBundle:Evolution_maladie')->findAll();
+
+        return $this->render('evolution_maladie/index.html.twig', array(
+            'evolution_maladies' => $evolution_maladies,
+        ));
     }
 
     /**
-     * @Rest\View()
-     * @Rest\Get("/{id}")
+     * Creates a new evolution_maladie entity.
+     *
      */
-    public function findAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('NanoAgoraBundle:Evolution_maladie')->find($request->get('id'));
-        if (empty($entity)) {
-            $reponse = new JsonResponse(array('message' => "contenu introuvable"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
+    public function newAction(Request $request)
+    {
+        $evolution_maladie = new Evolution_maladie();
+        $form = $this->createForm('Nano\AgoraBundle\Form\Evolution_maladieType', $evolution_maladie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($evolution_maladie);
+            $em->flush();
+
+            return $this->redirectToRoute('evolution_maladie_show', array('id' => $evolution_maladie->getId()));
         }
-        return $entity;
+
+        return $this->render('evolution_maladie/new.html.twig', array(
+            'evolution_maladie' => $evolution_maladie,
+            'form' => $form->createView(),
+        ));
     }
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_CREATED)
-     * @Rest\Post("/create")
+     * Finds and displays a evolution_maladie entity.
+     *
      */
-    public function createAction(Request $request) {
-        $entity = new Evolution_maladie();
-        $form = $this->createForm(Evolution_maladieType::class, $entity);
+    public function showAction(Evolution_maladie $evolution_maladie)
+    {
+        $deleteForm = $this->createDeleteForm($evolution_maladie);
 
-        $form->submit($request->request->all()); // Validation des données
-
-        if ($form->isValid()) {
-            try {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($entity);
-                $em->flush();
-                return $entity;
-            } catch (\Doctrine\DBAL\Exception\NotNullConstraintViolationException $e) {
-                $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects ou sont vides"), Response::HTTP_INTERNAL_SERVER_ERROR);
-                $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-                return $reponse;
-            }
-        } else {
-            $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
-        }
+        return $this->render('evolution_maladie/show.html.twig', array(
+            'evolution_maladie' => $evolution_maladie,
+            'delete_form' => $deleteForm->createView(),
+        ));
     }
 
     /**
-     * @Rest\View()
-     * @Rest\Put("/update/{id}")
+     * Displays a form to edit an existing evolution_maladie entity.
+     *
      */
-    public function updateAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('NanoAgoraBundle:Evolution_maladie')->find($request->get('id'));
-        if (empty($entity)) {
-            $reponse = new JsonResponse(array('message' => "contenu introuvable"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
+    public function editAction(Request $request, Evolution_maladie $evolution_maladie)
+    {
+        $deleteForm = $this->createDeleteForm($evolution_maladie);
+        $editForm = $this->createForm('Nano\AgoraBundle\Form\Evolution_maladieType', $evolution_maladie);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('evolution_maladie_edit', array('id' => $evolution_maladie->getId()));
         }
-        $form = $this->createForm(Evolution_maladieType::class, $entity);
-        $form->submit($request->request->all(), true); // Validation des données
-        if ($form->isValid()) {
-            try {
-                $em = $this->getDoctrine()->getManager();
-                $em->merge($entity);
-                $em->flush();
-                return $entity;
-            } catch (\Doctrine\DBAL\Exception\NotNullConstraintViolationException $e) {
-                $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects ou sont vides"), Response::HTTP_INTERNAL_SERVER_ERROR);
-                $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-                return $reponse;
-            }
-        } else {
-            $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
-        }
+
+        return $this->render('evolution_maladie/edit.html.twig', array(
+            'evolution_maladie' => $evolution_maladie,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
     }
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
-     * @Rest\Delete("/delete/{id}")
+     * Deletes a evolution_maladie entity.
+     *
      */
-    public function removeAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('NanoAgoraBundle:Evolution_maladie')
-            ->find($request->get('id'));
+    public function deleteAction(Request $request, Evolution_maladie $evolution_maladie)
+    {
+        $form = $this->createDeleteForm($evolution_maladie);
+        $form->handleRequest($request);
 
-        if ($entity) {
-            try {
-                $em->remove($entity);
-                $em->flush();
-            } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $e) {
-                $reponse = new JsonResponse(array('message' => "ce contenu est utilisé ailleurs"), Response::HTTP_INTERNAL_SERVER_ERROR);
-                $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-                return $reponse;
-            }
-        }else{
-            $reponse = new JsonResponse(array('message' => "ce contenu est introuvable"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($evolution_maladie);
+            $em->flush();
         }
+
+        return $this->redirectToRoute('evolution_maladie_index');
     }
 
+    /**
+     * Creates a form to delete a evolution_maladie entity.
+     *
+     * @param Evolution_maladie $evolution_maladie The evolution_maladie entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(Evolution_maladie $evolution_maladie)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('evolution_maladie_delete', array('id' => $evolution_maladie->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
+    }
 }

@@ -14,13 +14,88 @@
                 <th>Nationalite</th>
                 <th>Profession</th>
                 <th>Quartier</th>
-                <th>Numero</th>
+                <th>Numerotel</th>
                 <th>Photo</th>
                 <th>Motifconsultationpatient</th>
                 <th>Dateheurerdv</th>
                 <th>Lieuconsultation</th>
                 <th>Localisation</th>
                 <th>Dateetape1</th>
+                <th>Dateheurerdvreel</th>
+                <th>Optionsuivie</th>
+                <th>Dateetape2</th>
+                <th>Dateheureexamen</th>
+                <th>Dateetape3</th>
+                <th>Dateetape4</th>
+                <th>Dateetape5</th>
+                <th>Lieuconsultationreel</th>
+                <th>Lieuexamen</th>
+                <th>Motifconsultationmedecin</th>
+                <th>Diagnosticfinal</th>
+                <th>Traitementfinal</th>
+                <th>Historiquemaladie</th>
+                <th>Antecedentprenataux</th>
+                <th>Antecedentnataux</th>
+                <th>Antecedentpostnataux</th>
+                <th>Antecedentimmunoallergique</th>
+                <th>Antecedentenvironnementaux</th>
+                <th>Alimentation</th>
+                <th>Developpementpsychomoteur</th>
+                <th>Antecedentmedicaux</th>
+                <th>Antecedentchirugicaux</th>
+                <th>Antecedenttoxicologiques</th>
+                <th>Antecedentsocioeconomiques</th>
+                <th>Antecedentgynecologiques</th>
+                <th>Antecedentobstetricaux</th>
+                <th>Antecedentfamilliaux</th>
+                <th>Signegeneraux</th>
+                <th>S</th>
+                <th>Systemepulmonaire</th>
+                <th>Sytemecardiovasculaire</th>
+                <th>Systemehepatogastrico</th>
+                <th>Systemehepatogastricoenterologique</th>
+                <th>Systemeendocrinien</th>
+                <th>Systemeneurologique</th>
+                <th>Systemehematologique</th>
+                <th>Systemeurogenital</th>
+                <th>Systemedermatologique</th>
+                <th>Systemelocomoteur</th>
+                <th>Systemeophtamologique</th>
+                <th>Systemeotorhinolaryngologique</th>
+                <th>Etatgeneral</th>
+                <th>Tensionarterielle</th>
+                <th>Temperature</th>
+                <th>Pouls</th>
+                <th>Referermedecin</th>
+                <th>Saturation</th>
+                <th>Glycemie</th>
+                <th>Poids</th>
+                <th>Imc</th>
+                <th>Examentopographique</th>
+                <th>Teteoucou</th>
+                <th>Thorax</th>
+                <th>Abdomen</th>
+                <th>Organegenitoexterne</th>
+                <th>Examenrachis</th>
+                <th>Examenmembres</th>
+                <th>Examenneurologues</th>
+                <th>Examensystemique</th>
+                <th>Etat</th>
+                <th>Prixexamen</th>
+                <th>Appareilcardiovasculaire</th>
+                <th>Appareilrespiratoire</th>
+                <th>Appareildigestif</th>
+                <th>Appareilurogenital</th>
+                <th>Appareillocomoteur</th>
+                <th>Systemesplenoganglionnaire</th>
+                <th>Systemenerveux</th>
+                <th>Antecedentcontributif</th>
+                <th>Resumesyndromique</th>
+                <th>Hypothesediagnostics</th>
+                <th>Diagnostifdifferentiels</th>
+                <th>Bilanbiologiques</th>
+                <th>Bilanmorphologiques</th>
+                <th>Traitementpreleminaire</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -31,17 +106,92 @@
                 <td>{{ rdv.nom }}</td>
                 <td>{{ rdv.prenom }}</td>
                 <td>{{ rdv.sexe }}</td>
-                <td>{% if rdv.age %}{{ rdv.age|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if rdv.age %}{{ rdv.age|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ rdv.nationalite }}</td>
                 <td>{{ rdv.profession }}</td>
                 <td>{{ rdv.quartier }}</td>
-                <td>{{ rdv.numero }}</td>
+                <td>{{ rdv.numeroTel }}</td>
                 <td>{{ rdv.photo }}</td>
                 <td>{{ rdv.motifConsultationPatient }}</td>
                 <td>{% if rdv.dateHeureRdv %}{{ rdv.dateHeureRdv|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ rdv.lieuConsultation }}</td>
                 <td>{{ rdv.localisation }}</td>
                 <td>{% if rdv.dateEtape1 %}{{ rdv.dateEtape1|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if rdv.dateHeureRdvReel %}{{ rdv.dateHeureRdvReel|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if rdv.optionSuivie %}{{ rdv.optionSuivie|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if rdv.dateEtape2 %}{{ rdv.dateEtape2|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if rdv.dateHeureExamen %}{{ rdv.dateHeureExamen|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if rdv.dateEtape3 %}{{ rdv.dateEtape3|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if rdv.dateEtape4 %}{{ rdv.dateEtape4|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if rdv.dateEtape5 %}{{ rdv.dateEtape5|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ rdv.lieuConsultationReel }}</td>
+                <td>{{ rdv.lieuExamen }}</td>
+                <td>{{ rdv.motifConsultationMedecin }}</td>
+                <td>{{ rdv.diagnosticFinal }}</td>
+                <td>{{ rdv.traitementFinal }}</td>
+                <td>{{ rdv.historiqueMaladie }}</td>
+                <td>{{ rdv.antecedentPrenataux }}</td>
+                <td>{{ rdv.antecedentNataux }}</td>
+                <td>{{ rdv.antecedentPostnataux }}</td>
+                <td>{{ rdv.antecedentImmunoallergique }}</td>
+                <td>{{ rdv.antecedentEnvironnementaux }}</td>
+                <td>{{ rdv.alimentation }}</td>
+                <td>{{ rdv.developpementPsychomoteur }}</td>
+                <td>{{ rdv.antecedentMedicaux }}</td>
+                <td>{{ rdv.antecedentChirugicaux }}</td>
+                <td>{{ rdv.antecedentToxicologiques }}</td>
+                <td>{{ rdv.antecedentSocioEconomiques }}</td>
+                <td>{{ rdv.antecedentGynecologiques }}</td>
+                <td>{{ rdv.antecedentObstetricaux }}</td>
+                <td>{{ rdv.antecedentFamilliaux }}</td>
+                <td>{{ rdv.signeGeneraux }}</td>
+                <td>{{ rdv.s }}</td>
+                <td>{{ rdv.systemePulmonaire }}</td>
+                <td>{{ rdv.sytemeCardiovasculaire }}</td>
+                <td>{{ rdv.systemeHepatogastrico }}</td>
+                <td>{{ rdv.systemeHepatogastricoenterologique }}</td>
+                <td>{{ rdv.systemeEndocrinien }}</td>
+                <td>{{ rdv.systemeNeurologique }}</td>
+                <td>{{ rdv.systemeHematologique }}</td>
+                <td>{{ rdv.systemeUrogenital }}</td>
+                <td>{{ rdv.systemeDermatologique }}</td>
+                <td>{{ rdv.systemeLocomoteur }}</td>
+                <td>{{ rdv.systemeOphtamologique }}</td>
+                <td>{{ rdv.systemeOtorhinolaryngologique }}</td>
+                <td>{{ rdv.etatGeneral }}</td>
+                <td>{{ rdv.tensionArterielle }}</td>
+                <td>{{ rdv.temperature }}</td>
+                <td>{{ rdv.pouls }}</td>
+                <td>{{ rdv.refererMedecin }}</td>
+                <td>{{ rdv.saturation }}</td>
+                <td>{{ rdv.glycemie }}</td>
+                <td>{{ rdv.poids }}</td>
+                <td>{{ rdv.iMC }}</td>
+                <td>{{ rdv.examenTopographique }}</td>
+                <td>{{ rdv.teteOuCou }}</td>
+                <td>{{ rdv.thorax }}</td>
+                <td>{{ rdv.abdomen }}</td>
+                <td>{{ rdv.organeGenitoexterne }}</td>
+                <td>{{ rdv.examenRachis }}</td>
+                <td>{{ rdv.examenMembres }}</td>
+                <td>{{ rdv.examenNeurologues }}</td>
+                <td>{{ rdv.examenSystemique }}</td>
+                <td>{{ rdv.etat }}</td>
+                <td>{{ rdv.prixExamen }}</td>
+                <td>{{ rdv.appareilCardiovasculaire }}</td>
+                <td>{{ rdv.appareilRespiratoire }}</td>
+                <td>{{ rdv.appareilDigestif }}</td>
+                <td>{{ rdv.appareilUrogenital }}</td>
+                <td>{{ rdv.appareilLocomoteur }}</td>
+                <td>{{ rdv.systemeSplenoganglionnaire }}</td>
+                <td>{{ rdv.systemeNerveux }}</td>
+                <td>{{ rdv.antecedentContributif }}</td>
+                <td>{{ rdv.resumeSyndromique }}</td>
+                <td>{{ rdv.hypotheseDiagnostics }}</td>
+                <td>{{ rdv.diagnostifDifferentiels }}</td>
+                <td>{{ rdv.bilanBiologiques }}</td>
+                <td>{{ rdv.bilanMorphologiques }}</td>
+                <td>{{ rdv.traitementPreleminaire }}</td>
                 <td>
                     <ul>
                         <li>

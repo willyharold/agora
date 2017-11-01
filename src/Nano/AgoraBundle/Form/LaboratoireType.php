@@ -13,7 +13,7 @@ class LaboratoireType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('designation')->add('localisation')->add('photo');
+        $builder->add('designation')->add('localisation')->add('photo')->add('examen_laboratoire')->add('examen_rdv');
     }
     
     /**
@@ -22,9 +22,7 @@ class LaboratoireType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Nano\AgoraBundle\Entity\Laboratoire',
-            'csrf_protection' => false,
-            'allow_extra_fields' => true
+            'data_class' => 'Nano\AgoraBundle\Entity\Laboratoire'
         ));
     }
 

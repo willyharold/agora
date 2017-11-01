@@ -7,6 +7,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Nom</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -14,6 +15,7 @@
         {% for examen_laboratoire in examen_laboratoires %}
             <tr>
                 <td><a href="{{ path('examen_laboratoire_show', { 'id': examen_laboratoire.id }) }}">{{ examen_laboratoire.id }}</a></td>
+                <td>{{ examen_laboratoire.nom }}</td>
                 <td>
                     <ul>
                         <li>

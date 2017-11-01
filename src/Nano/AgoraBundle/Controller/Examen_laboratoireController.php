@@ -3,12 +3,8 @@
 namespace Nano\AgoraBundle\Controller;
 
 use Nano\AgoraBundle\Entity\Examen_laboratoire;
-use Nano\AgoraBundle\Form\Examen_laboratoireType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\Controller\Annotations as Rest;
 
 /**
  * Examen_laboratoire controller.
@@ -17,113 +13,112 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 class Examen_laboratoireController extends Controller
 {
     /**
-     * @Rest\View()
-     * @Rest\Get("/")
+     * Lists all examen_laboratoire entities.
+     *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('NanoAgoraBundle:Examen_laboratoire')->findAll();
-        return $entities;
+
+        $examen_laboratoires  = $em->getRepository('NanoAgoraBundle:Examen_laboratoire')->findAll();
+
+        return $this->render('examen_laboratoire/index.html.twig', array(
+            'examen_laboratoires' => $examen_laboratoires,
+        ));
     }
 
     /**
-     * @Rest\View()
-     * @Rest\Get("/{id}")
+     * Creates a new examen_laboratoire entity.
+     *
      */
-    public function findAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('NanoAgoraBundle:Examen_laboratoire')->find($request->get('id'));
-        if (empty($entity)) {
-            $reponse = new JsonResponse(array('message' => "contenu introuvable"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
+    public function newAction(Request $request)
+    {
+        $examen_laboratoire = new Examen_laboratoire();
+        $form = $this->createForm('Nano\AgoraBundle\Form\Examen_laboratoireType', $examen_laboratoire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($examen_laboratoire);
+            $em->flush();
+
+            return $this->redirectToRoute('examen_laboratoire_show', array('id' => $examen_laboratoire->getId()));
         }
-        return $entity;
+
+        return $this->render('examen_laboratoire/new.html.twig', array(
+            'examen_laboratoire' => $examen_laboratoire,
+            'form' => $form->createView(),
+        ));
     }
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_CREATED)
-     * @Rest\Post("/create")
+     * Finds and displays a examen_laboratoire entity.
+     *
      */
-    public function createAction(Request $request) {
-        $entity = new Examen_laboratoire();
-        $form = $this->createForm(Examen_laboratoireType::class, $entity);
+    public function showAction(Examen_laboratoire $examen_laboratoire)
+    {
+        $deleteForm = $this->createDeleteForm($examen_laboratoire);
 
-        $form->submit($request->request->all()); // Validation des données
-
-        if ($form->isValid()) {
-            try {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($entity);
-                $em->flush();
-                return $entity;
-            } catch (\Doctrine\DBAL\Exception\NotNullConstraintViolationException $e) {
-                $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects ou sont vides"), Response::HTTP_INTERNAL_SERVER_ERROR);
-                $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-                return $reponse;
-            }
-        } else {
-            $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
-        }
+        return $this->render('examen_laboratoire/show.html.twig', array(
+            'examen_laboratoire' => $examen_laboratoire,
+            'delete_form' => $deleteForm->createView(),
+        ));
     }
 
     /**
-     * @Rest\View()
-     * @Rest\Put("/update/{id}")
+     * Displays a form to edit an existing examen_laboratoire entity.
+     *
      */
-    public function updateAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('NanoAgoraBundle:Examen_laboratoire')->find($request->get('id'));
-        if (empty($entity)) {
-            $reponse = new JsonResponse(array('message' => "contenu introuvable"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
+    public function editAction(Request $request, Examen_laboratoire $examen_laboratoire)
+    {
+        $deleteForm = $this->createDeleteForm($examen_laboratoire);
+        $editForm = $this->createForm('Nano\AgoraBundle\Form\Examen_laboratoireType', $examen_laboratoire);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('examen_laboratoire_edit', array('id' => $examen_laboratoire->getId()));
         }
-        $form = $this->createForm(Examen_laboratoireType::class, $entity);
-        $form->submit($request->request->all(), true); // Validation des données
-        if ($form->isValid()) {
-            try {
-                $em = $this->getDoctrine()->getManager();
-                $em->merge($entity);
-                $em->flush();
-                return $entity;
-            } catch (\Doctrine\DBAL\Exception\NotNullConstraintViolationException $e) {
-                $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects ou sont vides"), Response::HTTP_INTERNAL_SERVER_ERROR);
-                $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-                return $reponse;
-            }
-        } else {
-            $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
-        }
+
+        return $this->render('examen_laboratoire/edit.html.twig', array(
+            'examen_laboratoire' => $examen_laboratoire,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
     }
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
-     * @Rest\Delete("/delete/{id}")
+     * Deletes a examen_laboratoire entity.
+     *
      */
-    public function removeAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('NanoAgoraBundle:Examen_laboratoire')
-            ->find($request->get('id'));
+    public function deleteAction(Request $request, Examen_laboratoire $examen_laboratoire)
+    {
+        $form = $this->createDeleteForm($examen_laboratoire);
+        $form->handleRequest($request);
 
-        if ($entity) {
-            try {
-                $em->remove($entity);
-                $em->flush();
-            } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $e) {
-                $reponse = new JsonResponse(array('message' => "ce contenu est utilisé ailleurs"), Response::HTTP_INTERNAL_SERVER_ERROR);
-                $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-                return $reponse;
-            }
-        }else{
-            $reponse = new JsonResponse(array('message' => "ce contenu est introuvable"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($examen_laboratoire);
+            $em->flush();
         }
+
+        return $this->redirectToRoute('examen_laboratoire_index');
     }
 
+    /**
+     * Creates a form to delete a examen_laboratoire entity.
+     *
+     * @param Examen_laboratoire $examen_laboratoire The examen_laboratoire entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(Examen_laboratoire $examen_laboratoire)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('examen_laboratoire_delete', array('id' => $examen_laboratoire->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
+    }
 }

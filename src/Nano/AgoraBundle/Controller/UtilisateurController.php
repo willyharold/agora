@@ -3,12 +3,8 @@
 namespace Nano\AgoraBundle\Controller;
 
 use Nano\AgoraBundle\Entity\Utilisateur;
-use Nano\AgoraBundle\Form\UtilisateurType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\Controller\Annotations as Rest;
 
 /**
  * Utilisateur controller.
@@ -17,113 +13,112 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 class UtilisateurController extends Controller
 {
     /**
-     * @Rest\View()
-     * @Rest\Get("/")
+     * Lists all utilisateur entities.
+     *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('NanoAgoraBundle:Utilisateur')->findAll();
-        return $entities;
+
+        $utilisateurs = $em->getRepository('NanoAgoraBundle:Utilisateur')->findAll();
+
+        return $this->render('utilisateur/index.html.twig', array(
+            'utilisateurs' => $utilisateurs,
+        ));
     }
 
     /**
-     * @Rest\View()
-     * @Rest\Get("/{id}")
+     * Creates a new utilisateur entity.
+     *
      */
-    public function findAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('NanoAgoraBundle:Utilisateur')->find($request->get('id'));
-        if (empty($entity)) {
-            $reponse = new JsonResponse(array('message' => "contenu introuvable"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
+    public function newAction(Request $request)
+    {
+        $utilisateur = new Utilisateur();
+        $form = $this->createForm('Nano\AgoraBundle\Form\UtilisateurType', $utilisateur);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($utilisateur);
+            $em->flush();
+
+            return $this->redirectToRoute('utilisateur_show', array('id' => $utilisateur->getId()));
         }
-        return $entity;
+
+        return $this->render('utilisateur/new.html.twig', array(
+            'utilisateur' => $utilisateur,
+            'form' => $form->createView(),
+        ));
     }
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_CREATED)
-     * @Rest\Post("/create")
+     * Finds and displays a utilisateur entity.
+     *
      */
-    public function createAction(Request $request) {
-        $entity = new Utilisateur();
-        $form = $this->createForm(UtilisateurType::class, $entity);
+    public function showAction(Utilisateur $utilisateur)
+    {
+        $deleteForm = $this->createDeleteForm($utilisateur);
 
-        $form->submit($request->request->all()); // Validation des données
-
-        if ($form->isValid()) {
-            try {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($entity);
-                $em->flush();
-                return $entity;
-            } catch (\Doctrine\DBAL\Exception\NotNullConstraintViolationException $e) {
-                $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects ou sont vides"), Response::HTTP_INTERNAL_SERVER_ERROR);
-                $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-                return $reponse;
-            }
-        } else {
-            $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
-        }
+        return $this->render('utilisateur/show.html.twig', array(
+            'utilisateur' => $utilisateur,
+            'delete_form' => $deleteForm->createView(),
+        ));
     }
 
     /**
-     * @Rest\View()
-     * @Rest\Put("/update/{id}")
+     * Displays a form to edit an existing utilisateur entity.
+     *
      */
-    public function updateAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('NanoAgoraBundle:Utilisateur')->find($request->get('id'));
-        if (empty($entity)) {
-            $reponse = new JsonResponse(array('message' => "contenu introuvable"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
+    public function editAction(Request $request, Utilisateur $utilisateur)
+    {
+        $deleteForm = $this->createDeleteForm($utilisateur);
+        $editForm = $this->createForm('Nano\AgoraBundle\Form\UtilisateurType', $utilisateur);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('utilisateur_edit', array('id' => $utilisateur->getId()));
         }
-        $form = $this->createForm(UtilisateurType::class, $entity);
-        $form->submit($request->request->all(), true); // Validation des données
-        if ($form->isValid()) {
-            try {
-                $em = $this->getDoctrine()->getManager();
-                $em->merge($entity);
-                $em->flush();
-                return $entity;
-            } catch (\Doctrine\DBAL\Exception\NotNullConstraintViolationException $e) {
-                $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects ou sont vides"), Response::HTTP_INTERNAL_SERVER_ERROR);
-                $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-                return $reponse;
-            }
-        } else {
-            $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
-        }
+
+        return $this->render('utilisateur/edit.html.twig', array(
+            'utilisateur' => $utilisateur,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
     }
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
-     * @Rest\Delete("/delete/{id}")
+     * Deletes a utilisateur entity.
+     *
      */
-    public function removeAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('NanoAgoraBundle:Utilisateur')
-            ->find($request->get('id'));
+    public function deleteAction(Request $request, Utilisateur $utilisateur)
+    {
+        $form = $this->createDeleteForm($utilisateur);
+        $form->handleRequest($request);
 
-        if ($entity) {
-            try {
-                $em->remove($entity);
-                $em->flush();
-            } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $e) {
-                $reponse = new JsonResponse(array('message' => "ce contenu est utilisé ailleurs"), Response::HTTP_INTERNAL_SERVER_ERROR);
-                $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-                return $reponse;
-            }
-        }else{
-            $reponse = new JsonResponse(array('message' => "ce contenu est introuvable"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($utilisateur);
+            $em->flush();
         }
+
+        return $this->redirectToRoute('utilisateur_index');
     }
 
+    /**
+     * Creates a form to delete a utilisateur entity.
+     *
+     * @param Utilisateur $utilisateur The utilisateur entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(Utilisateur $utilisateur)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('utilisateur_delete', array('id' => $utilisateur->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
+    }
 }

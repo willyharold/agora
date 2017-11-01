@@ -14,15 +14,9 @@ class AppKernel extends Kernel
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Nano\AgoraBundle\NanoAgoraBundle(),
-            new FOS\UserBundle\FOSUserBundle(),
-            new FOS\RestBundle\FOSRestBundle(),
-            new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle(),
-            new Nelmio\CorsBundle\NelmioCorsBundle(),
-            new Nelmio\ApiDocBundle\NelmioApiDocBundle()
-            
+            new FOS\UserBundle\FOSUserBundle()
+
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

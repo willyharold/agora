@@ -24,111 +24,119 @@ class Horaire
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="lundi_debut", type="time")
+     * @ORM\Column(name="lundi_debut", type="datetime")
      */
     private $lundiDebut;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="mardi_debut", type="time")
+     * @ORM\Column(name="mardi_debut", type="datetime")
      */
     private $mardiDebut;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="mercredi_debut", type="time")
+     * @ORM\Column(name="mercredi_debut", type="datetime")
      */
     private $mercrediDebut;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="jeudi_debut", type="time")
+     * @ORM\Column(name="jeudi_debut", type="datetime")
      */
     private $jeudiDebut;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="vendredi_debut", type="time")
+     * @ORM\Column(name="vendredi_debut", type="datetime")
      */
     private $vendrediDebut;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="samedi_debut", type="time")
+     * @ORM\Column(name="samedi_debut", type="datetime")
      */
     private $samediDebut;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dimanche_debut", type="time")
+     * @ORM\Column(name="dimanche_debut", type="datetime")
      */
     private $dimancheDebut;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="lundi_fin", type="time")
+     * @ORM\Column(name="lundi_fin", type="datetime")
      */
     private $lundiFin;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="mardi_fin", type="time")
+     * @ORM\Column(name="mardi_fin", type="datetime")
      */
     private $mardiFin;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="mercredi_fin", type="time")
+     * @ORM\Column(name="mercredi_fin", type="datetime")
      */
     private $mercrediFin;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="jeudi_fin", type="time")
+     * @ORM\Column(name="jeudi_fin", type="datetime")
      */
     private $jeudiFin;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="vendredi_fin", type="time")
+     * @ORM\Column(name="vendredi_fin", type="datetime")
      */
     private $vendrediFin;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="samedi_fin", type="time")
+     * @ORM\Column(name="samedi_fin", type="datetime")
      */
     private $samediFin;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dimanche_fin", type="time")
+     * @ORM\Column(name="dimanche_fin", type="datetime")
      */
     private $dimancheFin;
 
     /**
-     * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Medecin", mappedBy="horaires")
+     * @ORM\OneToMany(targetEntity="Nano\AgoraBundle\Entity\Medecin", mappedBy="horaire")
      * @var $medecin[]
      */
-     private $Id_Medecin;
+     private $medecins;
+
+        /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->medecins = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -470,45 +478,39 @@ class Horaire
     {
         return $this->dimancheFin;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->Id_Medecin = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
-     * Add idMedecin
+     * Add medecin
      *
-     * @param \Nano\AgoraBundle\Entity\Medecin $idMedecin
+     * @param \Nano\AgoraBundle\Entity\Medecin $medecin
      *
      * @return Horaire
      */
-    public function addIdMedecin(\Nano\AgoraBundle\Entity\Medecin $idMedecin)
+    public function addMedecin(\Nano\AgoraBundle\Entity\Medecin $medecin)
     {
-        $this->Id_Medecin[] = $idMedecin;
+        $this->medecins[] = $medecin;
 
         return $this;
     }
 
     /**
-     * Remove idMedecin
+     * Remove medecin
      *
-     * @param \Nano\AgoraBundle\Entity\Medecin $idMedecin
+     * @param \Nano\AgoraBundle\Entity\Medecin $medecin
      */
-    public function removeIdMedecin(\Nano\AgoraBundle\Entity\Medecin $idMedecin)
+    public function removeMedecin(\Nano\AgoraBundle\Entity\Medecin $medecin)
     {
-        $this->Id_Medecin->removeElement($idMedecin);
+        $this->medecins->removeElement($medecin);
     }
 
     /**
-     * Get idMedecin
+     * Get medecins
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getIdMedecin()
+    public function getMedecins()
     {
-        return $this->Id_Medecin;
+        return $this->medecins;
     }
+
 }

@@ -3,12 +3,8 @@
 namespace Nano\AgoraBundle\Controller;
 
 use Nano\AgoraBundle\Entity\Notification;
-use Nano\AgoraBundle\Form\NotificationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\Controller\Annotations as Rest;
 
 /**
  * Notification controller.
@@ -17,113 +13,112 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 class NotificationController extends Controller
 {
     /**
-     * @Rest\View()
-     * @Rest\Get("/")
+     * Lists all notification entities.
+     *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('NanoAgoraBundle:Notification')->findAll();
-        return $entities;
+
+        $notifications = $em->getRepository('NanoAgoraBundle:Notification')->findAll();
+
+        return $this->render('notification/index.html.twig', array(
+            'notifications' => $notifications,
+        ));
     }
 
     /**
-     * @Rest\View()
-     * @Rest\Get("/{id}")
+     * Creates a new notification entity.
+     *
      */
-    public function findAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('NanoAgoraBundle:Notification')->find($request->get('id'));
-        if (empty($entity)) {
-            $reponse = new JsonResponse(array('message' => "contenu introuvable"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
+    public function newAction(Request $request)
+    {
+        $notification = new Notification();
+        $form = $this->createForm('Nano\AgoraBundle\Form\NotificationType', $notification);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($notification);
+            $em->flush();
+
+            return $this->redirectToRoute('notification_show', array('id' => $notification->getId()));
         }
-        return $entity;
+
+        return $this->render('notification/new.html.twig', array(
+            'notification' => $notification,
+            'form' => $form->createView(),
+        ));
     }
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_CREATED)
-     * @Rest\Post("/create")
+     * Finds and displays a notification entity.
+     *
      */
-    public function createAction(Request $request) {
-        $entity = new Notification();
-        $form = $this->createForm(NotificationType::class, $entity);
+    public function showAction(Notification $notification)
+    {
+        $deleteForm = $this->createDeleteForm($notification);
 
-        $form->submit($request->request->all()); // Validation des données
-
-        if ($form->isValid()) {
-            try {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($entity);
-                $em->flush();
-                return $entity;
-            } catch (\Doctrine\DBAL\Exception\NotNullConstraintViolationException $e) {
-                $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects ou sont vides"), Response::HTTP_INTERNAL_SERVER_ERROR);
-                $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-                return $reponse;
-            }
-        } else {
-            $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
-        }
+        return $this->render('notification/show.html.twig', array(
+            'notification' => $notification,
+            'delete_form' => $deleteForm->createView(),
+        ));
     }
 
     /**
-     * @Rest\View()
-     * @Rest\Put("/update/{id}")
+     * Displays a form to edit an existing notification entity.
+     *
      */
-    public function updateAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('NanoAgoraBundle:Notification')->find($request->get('id'));
-        if (empty($entity)) {
-            $reponse = new JsonResponse(array('message' => "contenu introuvable"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
+    public function editAction(Request $request, Notification $notification)
+    {
+        $deleteForm = $this->createDeleteForm($notification);
+        $editForm = $this->createForm('Nano\AgoraBundle\Form\NotificationType', $notification);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('notification_edit', array('id' => $notification->getId()));
         }
-        $form = $this->createForm(NotificationType::class, $entity);
-        $form->submit($request->request->all(), true); // Validation des données
-        if ($form->isValid()) {
-            try {
-                $em = $this->getDoctrine()->getManager();
-                $em->merge($entity);
-                $em->flush();
-                return $entity;
-            } catch (\Doctrine\DBAL\Exception\NotNullConstraintViolationException $e) {
-                $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects ou sont vides"), Response::HTTP_INTERNAL_SERVER_ERROR);
-                $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-                return $reponse;
-            }
-        } else {
-            $reponse = new JsonResponse(array('message' => "certains champs ne sont pas corrects"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
-        }
+
+        return $this->render('notification/edit.html.twig', array(
+            'notification' => $notification,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
     }
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
-     * @Rest\Delete("/delete/{id}")
+     * Deletes a notification entity.
+     *
      */
-    public function removeAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('NanoAgoraBundle:Notification')
-            ->find($request->get('id'));
+    public function deleteAction(Request $request, Notification $notification)
+    {
+        $form = $this->createDeleteForm($notification);
+        $form->handleRequest($request);
 
-        if ($entity) {
-            try {
-                $em->remove($entity);
-                $em->flush();
-            } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $e) {
-                $reponse = new JsonResponse(array('message' => "ce contenu est utilisé ailleurs"), Response::HTTP_INTERNAL_SERVER_ERROR);
-                $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-                return $reponse;
-            }
-        }else{
-            $reponse = new JsonResponse(array('message' => "ce contenu est introuvable"), Response::HTTP_INTERNAL_SERVER_ERROR);
-            $reponse->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-            return $reponse;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($notification);
+            $em->flush();
         }
+
+        return $this->redirectToRoute('notification_index');
     }
 
+    /**
+     * Creates a form to delete a notification entity.
+     *
+     * @param Notification $notification The notification entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(Notification $notification)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('notification_delete', array('id' => $notification->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
+    }
 }
